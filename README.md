@@ -1,6 +1,4 @@
-Since I couldn’t locate that exact repository URL or its contents, I’ll give you a **template README** you can use and then you can fill in or adjust details once you have the repo contents.
 
----
 
 # Project Title
 
