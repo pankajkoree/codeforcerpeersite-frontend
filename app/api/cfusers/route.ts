@@ -1,21 +1,24 @@
 import { NextResponse } from "next/server";
 import { getUsersByUniversity } from "@/lib/codeforce/codeforces";
 
-export async function POST(req) {
+export async function POST(req: Request) {
   try {
     const { university } = await req.json();
 
-    if (!university) {
+    if (!university || typeof university !== "string") {
       return NextResponse.json(
-        { error: "University name required" },
+        { error: "University name is required" },
         { status: 400 }
       );
     }
 
     const users = await getUsersByUniversity(university);
     return NextResponse.json({ count: users.length, users });
-  } catch (err) {
-    console.error("Error in /api/cfusers:", err);
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (error: any) {
+    console.error("Error in /api/cfusers:", error);
+    return NextResponse.json(
+      { error: error.message || "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
