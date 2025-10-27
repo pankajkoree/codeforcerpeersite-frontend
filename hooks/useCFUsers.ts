@@ -1,25 +1,30 @@
-import { useMutation } from "@tanstack/react-query";
-import type { CodeforcesUser } from "@/lib/codeforce/codeforces";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
-interface CFResponse {
-  count: number;
-  users: CodeforcesUser[];
+interface CFUser {
+  handle: string;
+  organization?: string;
+  rating?: number;
+  rank?: string;
 }
 
-export function useCFUsers() {
-  return useMutation<CFResponse, Error, string>({
-    mutationFn: async (university: string) => {
-      const res = await fetch("/api/cfusers", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ university }),
-      });
+interface CFPage {
+  data: CFUser[];
+  nextStart: number | null;
+}
 
-      if (!res.ok) {
-        throw new Error("Failed to fetch users");
-      }
-
-      return res.json();
+export function useCFUsers(university: string, enabled: boolean) {
+  return useInfiniteQuery<CFPage, Error>({
+    queryKey: ["cfUsers", university],
+    queryFn: async ({ pageParam = 0 }) => {
+      const res = await fetch(
+        `/api/cfusers?start=${pageParam}&university=${university}`
+      );
+      if (!res.ok) throw new Error("Failed to fetch users");
+      const json = await res.json();
+      return json as CFPage;
     },
+    getNextPageParam: (lastPage) => lastPage.nextStart,
+    enabled, // controlled manually
+    initialPageParam: 0,
   });
 }
