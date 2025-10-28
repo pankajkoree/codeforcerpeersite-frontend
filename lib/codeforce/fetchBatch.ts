@@ -17,7 +17,6 @@ export async function fetchCFBatch(
   start: number,
   universityName: string
 ): Promise<CodeforcesUser[]> {
-  // Get rated list once for that batch slice
   const ratedListRes = await fetch(
     `https://codeforces.com/api/user.ratedList?activeOnly=false`
   );

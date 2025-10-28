@@ -26,10 +26,10 @@ export default function Home() {
     e.preventDefault();
     setFetchCompleted(false);
     setSubmitted(true);
-    refetch(); // trigger fresh fetch
+    refetch();
   };
 
-  // 🔁 Keep fetching until no more pages
+  // Keep fetching until no more pages
   useEffect(() => {
     if (!submitted || !data) return;
 
