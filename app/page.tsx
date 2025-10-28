@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 export default function Home() {
   const [university, setUniversity] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [fetchCompleted, setFetchCompleted] = useState(false);
 
   const {
     data,
@@ -16,25 +17,31 @@ export default function Home() {
     isFetchingNextPage,
     isFetching,
     refetch,
+    hasNextPage,
   } = useCFUsers(university, submitted);
 
   const users = data?.pages.flatMap((page) => page.data) ?? [];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setFetchCompleted(false);
     setSubmitted(true);
+    refetch(); // trigger fresh fetch
   };
 
-  // Automatically fetch all pages
+  // 🔁 Keep fetching until no more pages
   useEffect(() => {
-    if (!submitted) return;
-    if (!data?.pages) return;
+    if (!submitted || !data) return;
 
-    const nextStart = data.pages[data.pages.length - 1].nextStart;
-    if (nextStart != null) {
-      fetchNextPage();
-    }
-  }, [data, submitted, fetchNextPage]);
+    const fetchAll = async () => {
+      while (hasNextPage) {
+        await fetchNextPage();
+      }
+      setFetchCompleted(true);
+    };
+
+    fetchAll();
+  }, [data, submitted, hasNextPage, fetchNextPage]);
 
   return (
     <div className="p-8">
@@ -50,22 +57,28 @@ export default function Home() {
           value={university}
           onChange={(e) => setUniversity(e.target.value)}
         />
-        <Button type="submit" variant="default">
-          Search
+        <Button type="submit" disabled={isFetching}>
+          {isFetching ? "Fetching..." : "Search"}
         </Button>
       </form>
 
       {submitted && (isFetching || isFetchingNextPage) && (
-        <p className="mt-4 text-gray-500">
+        <p className="mt-4 text-gray-500 animate-pulse">
           Fetching users… ({users.length} found so far)
         </p>
       )}
 
+      {fetchCompleted && (
+        <p className="mt-4 text-green-600 font-semibold">
+          ✅ Completed fetching {users.length} users.
+        </p>
+      )}
+
       {users.length > 0 && (
-        <ul className="mt-6 space-y-1">
+        <ul className="mt-6 space-y-1 max-h-[400px] overflow-y-auto">
           {users.map((u) => (
             <li key={u.handle}>
-              {u.handle} ({u.organization})
+              {u.handle} — <span className="text-gray-500">{u.organization}</span>
             </li>
           ))}
         </ul>

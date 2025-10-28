@@ -17,14 +17,15 @@ export function useCFUsers(university: string, enabled: boolean) {
     queryKey: ["cfUsers", university],
     queryFn: async ({ pageParam = 0 }) => {
       const res = await fetch(
-        `/api/cfusers?start=${pageParam}&university=${university}`
+        `/api/cfusers?start=${pageParam}&university=${encodeURIComponent(
+          university
+        )}`
       );
       if (!res.ok) throw new Error("Failed to fetch users");
-      const json = await res.json();
-      return json as CFPage;
+      return res.json();
     },
     getNextPageParam: (lastPage) => lastPage.nextStart,
-    enabled, // controlled manually
+    enabled,
     initialPageParam: 0,
   });
 }

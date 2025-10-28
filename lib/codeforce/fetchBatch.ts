@@ -21,8 +21,9 @@ export async function fetchCFBatch(
   const ratedListRes = await fetch(
     `https://codeforces.com/api/user.ratedList?activeOnly=false`
   );
-  const ratedListJson =
-    (await ratedListRes.json()) as CodeforcesAPIResponse<CodeforcesUser[]>;
+  const ratedListJson = (await ratedListRes.json()) as CodeforcesAPIResponse<
+    CodeforcesUser[]
+  >;
 
   if (ratedListJson.status !== "OK") {
     throw new Error("Failed to fetch rated users list");
@@ -36,8 +37,9 @@ export async function fetchCFBatch(
   const userRes = await fetch(
     `https://codeforces.com/api/user.info?handles=${handles}`
   );
-  const userJson =
-    (await userRes.json()) as CodeforcesAPIResponse<CodeforcesUser[]>;
+  const userJson = (await userRes.json()) as CodeforcesAPIResponse<
+    CodeforcesUser[]
+  >;
 
   if (userJson.status !== "OK") {
     throw new Error("Failed to fetch batch info");
