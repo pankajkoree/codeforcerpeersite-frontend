@@ -1,0 +1,68 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="codeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+    
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="200" cy="200" r="180" fill="url(#bgGradient)"/>
+  
+  <!-- Code Brackets Symbol -->
+  <g filter="url(#glow)">
+    <!-- Left Bracket -->
+    <path d="M 120 140 L 100 140 Q 85 140 85 155 L 85 245 Q 85 260 100 260 L 120 260" 
+          stroke="#ffffff" stroke-width="8" fill="none" stroke-linecap="round"/>
+    
+    <!-- Right Bracket -->
+    <path d="M 280 140 L 300 140 Q 315 140 315 155 L 315 245 Q 315 260 300 260 L 280 260" 
+          stroke="#ffffff" stroke-width="8" fill="none" stroke-linecap="round"/>
+    
+    <!-- Forward Slash -->
+    <line x1="220" y1="140" x2="180" y2="260" 
+          stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Two Connected Nodes representing "Mates" -->
+  <g>
+    <!-- Connection Line -->
+    <line x1="145" y1="200" x2="255" y2="200" 
+          stroke="#ffd700" stroke-width="4" opacity="0.8"/>
+    
+    <!-- Left Node -->
+    <circle cx="145" cy="200" r="18" fill="#ffd700"/>
+    <circle cx="145" cy="200" r="12" fill="#ffffff"/>
+    
+    <!-- Right Node -->
+    <circle cx="255" cy="200" r="18" fill="#ffd700"/>
+    <circle cx="255" cy="200" r="12" fill="#ffffff"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="200" y="320" font-family="Arial, sans-serif" font-size="42" font-weight="bold" 
+        fill="#ffffff" text-anchor="middle">CODEFORCE</text>
+  <text x="200" y="355" font-family="Arial, sans-serif" font-size="32" font-weight="600" 
+        fill="#ffd700" text-anchor="middle">MATES</text>
+  
+  <!-- Decorative Code Elements -->
+  <g opacity="0.3">
+    <text x="140" y="90" font-family="monospace" font-size="16" fill="#ffffff">{}</text>
+    <text x="245" y="90" font-family="monospace" font-size="16" fill="#ffffff">[]</text>
+    <text x="60" y="210" font-family="monospace" font-size="16" fill="#ffffff">&lt;/&gt;</text>
+    <text x="320" y="210" font-family="monospace" font-size="16" fill="#ffffff">( )</text>
+  </g>
+</svg>

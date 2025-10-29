@@ -21,7 +21,7 @@ export default function RootLayout({
         <title>Page Title</title>
       </head>
 
-      <body className={`antialiased`}>
+      <body className={`antialiased text-gray-600`} >
         <QueryClientProvider client={queryClient}>
           <Header />
           {children}
