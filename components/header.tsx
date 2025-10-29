@@ -17,7 +17,7 @@ const Header = () => {
       <Link href="/">Contests</Link>
 
       {/* university mates */}
-      <Link href="/universitymates">University mate</Link>
+      <Link href="/universitymates">University mates</Link>
 
       {/* search user */}
       <Input type="text" placeholder="search user" />
