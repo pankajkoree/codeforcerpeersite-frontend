@@ -4,6 +4,7 @@ import "./globals.css";
 import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Header from "@/components/header";
+import Footer from "@/components/Footer";
 
 export default function RootLayout({
   children,
@@ -26,6 +27,7 @@ export default function RootLayout({
           <Header />
           {children}
         </QueryClientProvider>
+        <Footer />
       </body>
     </html>
   );
