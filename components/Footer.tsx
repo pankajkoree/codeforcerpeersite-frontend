@@ -1,4 +1,5 @@
 
+
 const Footer = () => {
     return (
         <div className="fixed bottom-0 z-50 w-full border-t-2 bg-white">
@@ -69,8 +70,7 @@ const Footer = () => {
 
             </nav>
         </div>
+    )
+}
 
-    );
-};
-
-export default Footer;
+export default Footer
