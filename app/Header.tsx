@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Input } from "./ui/input";
+import { Input } from "@/components/ui/input";
 import Image from "next/image";
 
 const Header = () => {

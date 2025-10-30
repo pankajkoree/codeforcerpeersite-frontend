@@ -3,8 +3,8 @@
 import "./globals.css";
 import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import Header from "./Header.tsx";
+import Footer from "./Footer.tsx";
 
 export default function RootLayout({
   children,
