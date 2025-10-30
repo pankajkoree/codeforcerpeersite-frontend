@@ -1,88 +1,93 @@
 "use client";
+import { useQuery } from "@tanstack/react-query";
+import { useState, useMemo } from "react";
 
-import { useState, useEffect } from "react";
-import { useCFUsers } from "@/hooks/useCFUsers";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+interface CodeforcesUser {
+  handle: string;
+  organization?: string;
+  rating?: number;
+  rank?: string;
+}
 
-export default function Home() {
-  const [university, setUniversity] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [fetchCompleted, setFetchCompleted] = useState(false);
+const PAGE_SIZE = 50;
 
-  const {
-    data,
-    fetchNextPage,
-    isFetchingNextPage,
-    isFetching,
-    refetch,
-    hasNextPage,
-  } = useCFUsers(university, submitted);
+export default function CodeforcesUsers() {
+  const [page, setPage] = useState(0);
 
-  const users = data?.pages.flatMap((page) => page.data) ?? [];
+  // 🔹 Fetch once with React Query
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["cf-users"],
+    queryFn: async () => {
+      const res = await fetch(`/api/batchRatedCFUsers?start=0`);
+      if (!res.ok) throw new Error("Failed to fetch users");
+      const json = await res.json();
+      console.log("Fetched:", json);
+      return json.data; // array of users
+    },
+    staleTime: Infinity, // data never goes stale
+    gcTime: Infinity, // was 'cacheTime' in v4
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFetchCompleted(false);
-    setSubmitted(true);
-    refetch();
-  };
+  // 🔹 Paginate locally
+  const paginatedUsers = useMemo(() => {
+    if (!data) return [];
+    const start = page * PAGE_SIZE;
+    return data.slice(start, start + PAGE_SIZE);
+  }, [data, page]);
 
-  // Keep fetching until no more pages
-  useEffect(() => {
-    if (!submitted || !data) return;
+  // 🔹 Handle navigation
+  const hasPrev = page > 0;
+  const hasNext = data && (page + 1) * PAGE_SIZE < data.length;
 
-    const fetchAll = async () => {
-      while (hasNextPage) {
-        await fetchNextPage();
-      }
-      setFetchCompleted(true);
-    };
-
-    fetchAll();
-  }, [data, submitted, hasNextPage, fetchNextPage]);
+  if (isLoading) return <p className="text-center mt-10">Loading users...</p>;
+  if (isError) return <p className="text-center text-red-500 mt-10">Error fetching users</p>;
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">
-        Get your university/college Codeforces users
-      </h1>
+    <main className="p-6 max-w-2xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4">Codeforces Rated Users</h1>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-        <Label>University or college name</Label>
-        <Input
-          type="text"
-          placeholder="Eg: Stanford University"
-          value={university}
-          onChange={(e) => setUniversity(e.target.value)}
-        />
-        <Button type="submit" disabled={isFetching}>
-          {isFetching ? "Fetching..." : "Search"}
-        </Button>
-      </form>
+      <ul className="space-y-2">
+        {paginatedUsers.map((u) => (
+          <li
+            key={u.handle}
+            className="p-3 border rounded shadow-sm hover:bg-gray-50 transition"
+          >
+            <div className="font-medium">{u.handle}</div>
+            <div className="text-sm text-gray-500">
+              {u.rank} — {u.rating}
+            </div>
+          </li>
+        ))}
+      </ul>
 
-      {submitted && (isFetching || isFetchingNextPage) && (
-        <p className="mt-4 text-gray-500 animate-pulse">
-          Fetching users… ({users.length} found so far)
-        </p>
-      )}
+      <div className="flex justify-center items-center mt-6 gap-4">
+        <button
+          disabled={!hasPrev}
+          onClick={() => setPage((p) => p - 1)}
+          className={`px-4 py-2 rounded ${hasPrev
+              ? "bg-blue-500 text-white hover:bg-blue-600"
+              : "bg-gray-200 text-gray-400 cursor-not-allowed"
+            }`}
+        >
+          Prev
+        </button>
 
-      {fetchCompleted && (
-        <p className="mt-4 text-green-600 font-semibold">
-          ✅ Completed fetching {users.length} users.
-        </p>
-      )}
+        <span className="text-sm text-gray-600">
+          Page {page + 1} of {Math.ceil((data?.length || 0) / PAGE_SIZE)}
+        </span>
 
-      {users.length > 0 && (
-        <ul className="mt-6 space-y-1 max-h-[400px] overflow-y-auto">
-          {users.map((u) => (
-            <li key={u.handle}>
-              {u.handle} — <span className="text-gray-500">{u.organization}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+        <button
+          disabled={!hasNext}
+          onClick={() => setPage((p) => p + 1)}
+          className={`px-4 py-2 rounded ${hasNext
+              ? "bg-blue-500 text-white hover:bg-blue-600"
+              : "bg-gray-200 text-gray-400 cursor-not-allowed"
+            }`}
+        >
+          Next
+        </button>
+      </div>
+
+    </main>
   );
 }
