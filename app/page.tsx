@@ -1,4 +1,5 @@
 "use client";
+import { Card } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useMemo } from "react";
 
@@ -10,11 +11,11 @@ interface CodeforcesUser {
 }
 
 const PAGE_SIZE = 50;
+const SKELETON_COUNT = 10;
 
 export default function CodeforcesUsers() {
   const [page, setPage] = useState(0);
 
-  // 🔹 Fetch once with React Query
   const { data, isLoading, isError } = useQuery({
     queryKey: ["cf-users"],
     queryFn: async () => {
@@ -22,72 +23,64 @@ export default function CodeforcesUsers() {
       if (!res.ok) throw new Error("Failed to fetch users");
       const json = await res.json();
       console.log("Fetched:", json);
-      return json.data; // array of users
+      return json.data;
     },
-    staleTime: Infinity, // data never goes stale
-    gcTime: Infinity, // was 'cacheTime' in v4
+    staleTime: Infinity,
+    gcTime: Infinity,
   });
 
-  // 🔹 Paginate locally
   const paginatedUsers = useMemo(() => {
     if (!data) return [];
     const start = page * PAGE_SIZE;
     return data.slice(start, start + PAGE_SIZE);
   }, [data, page]);
 
-  // 🔹 Handle navigation
   const hasPrev = page > 0;
   const hasNext = data && (page + 1) * PAGE_SIZE < data.length;
 
-  if (isLoading) return <p className="text-center mt-10">Loading users...</p>;
-  if (isError) return <p className="text-center text-red-500 mt-10">Error fetching users</p>;
-
   return (
-    <main className="p-6 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Codeforces Rated Users</h1>
+    <div className="max-w-full">
+      <main className="p-6 mx-auto md:w-[70%]">
+        <h1 className="text-2xl font-bold mb-4">Codeforces Rated Users</h1>
 
-      <ul className="space-y-2">
-        {paginatedUsers.map((u) => (
-          <li
-            key={u.handle}
-            className="p-3 border rounded shadow-sm hover:bg-gray-50 transition"
+        <div className="grid grid-cols-4 gap-4">
+          {isLoading
+            ? Array.from({ length: SKELETON_COUNT }).map((_, idx) => (
+              <Card
+                key={idx}
+                className="animate-pulse h-24 bg-gray-200 rounded-lg"
+              >
+                {/* Skeleton content */}
+              </Card>
+            ))
+            : paginatedUsers.map((user: CodeforcesUser) => (
+              <Card key={user.handle} className="p-4">
+                <p className="font-bold">{user.handle}</p>
+                <p className="text-sm text-gray-500">{user.organization || "Unknown"}</p>
+                <p className="text-sm">Rating: {user.rating ?? "N/A"}</p>
+                <p className="text-sm">Rank: {user.rank ?? "N/A"}</p>
+              </Card>
+            ))}
+        </div>
+
+        {/* Pagination */}
+        <div className="flex justify-between mt-6">
+          <button
+            onClick={() => setPage((p) => p - 1)}
+            disabled={!hasPrev}
+            className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
           >
-            <div className="font-medium">{u.handle}</div>
-            <div className="text-sm text-gray-500">
-              {u.rank} — {u.rating}
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      <div className="flex justify-center items-center mt-6 gap-4">
-        <button
-          disabled={!hasPrev}
-          onClick={() => setPage((p) => p - 1)}
-          className={`px-4 py-2 rounded ${hasPrev
-              ? "bg-blue-500 text-white hover:bg-blue-600"
-              : "bg-gray-200 text-gray-400 cursor-not-allowed"
-            }`}
-        >
-          Prev
-        </button>
-
-        <span className="text-sm text-gray-600">
-          Page {page + 1} of {Math.ceil((data?.length || 0) / PAGE_SIZE)}
-        </span>
-
-        <button
-          disabled={!hasNext}
-          onClick={() => setPage((p) => p + 1)}
-          className={`px-4 py-2 rounded ${hasNext
-              ? "bg-blue-500 text-white hover:bg-blue-600"
-              : "bg-gray-200 text-gray-400 cursor-not-allowed"
-            }`}
-        >
-          Next
-        </button>
-      </div>
-
-    </main>
+            Previous
+          </button>
+          <button
+            onClick={() => setPage((p) => p + 1)}
+            disabled={!hasNext}
+            className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
+      </main>
+    </div>
   );
 }
