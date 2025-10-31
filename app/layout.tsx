@@ -1,10 +1,10 @@
-"use client";
+'use client'
 
-import "./globals.css";
-import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import "./globals.css"
 
 export default function RootLayout({
   children,
@@ -22,12 +22,17 @@ export default function RootLayout({
         <title>Page Title</title>
       </head>
 
-      <body className={`antialiased text-gray-600`} >
+      <body className="antialiased text-gray-600 min-h-screen flex flex-col">
         <QueryClientProvider client={queryClient}>
           <Header />
-          {children}
+
+          {/* Main content grows to fill available space */}
+          <main className="flex-1">
+            {children}
+          </main>
+
+          <Footer />
         </QueryClientProvider>
-        <Footer />
       </body>
     </html>
   );

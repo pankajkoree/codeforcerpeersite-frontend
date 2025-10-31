@@ -1,9 +1,12 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 import { useState, useMemo } from "react";
 
 interface CodeforcesUser {
+  avatar: string,
   handle: string;
   organization?: string;
   rating?: number;
@@ -11,7 +14,7 @@ interface CodeforcesUser {
 }
 
 const PAGE_SIZE = 50;
-const SKELETON_COUNT = 10;
+const SKELETON_COUNT = 12;
 
 export default function CodeforcesUsers() {
   const [page, setPage] = useState(0);
@@ -41,20 +44,21 @@ export default function CodeforcesUsers() {
   return (
     <div className="max-w-full">
       <main className="p-6 mx-auto md:w-[70%]">
-        <h1 className="text-2xl font-bold mb-4">Codeforces Rated Users</h1>
+        <h1 className="text-2xl font-bold mb-4 text-center">Codeforces Rated Users</h1>
 
         <div className="grid grid-cols-4 gap-4">
           {isLoading
             ? Array.from({ length: SKELETON_COUNT }).map((_, idx) => (
               <Card
                 key={idx}
-                className="animate-pulse h-24 bg-gray-200 rounded-lg"
+                className="animate-pulse h-48 bg-gray-200 rounded-lg gap-4"
               >
-                {/* Skeleton content */}
+
               </Card>
             ))
             : paginatedUsers.map((user: CodeforcesUser) => (
               <Card key={user.handle} className="p-4">
+                <Image src={user?.avatar} width={24} height={24} alt={user.avatar} />
                 <p className="font-bold">{user.handle}</p>
                 <p className="text-sm text-gray-500">{user.organization || "Unknown"}</p>
                 <p className="text-sm">Rating: {user.rating ?? "N/A"}</p>
@@ -64,21 +68,21 @@ export default function CodeforcesUsers() {
         </div>
 
         {/* Pagination */}
-        <div className="flex justify-between mt-6">
-          <button
+        <div className="flex justify-between mt-6 mb-12">
+          <Button
             onClick={() => setPage((p) => p - 1)}
             disabled={!hasPrev}
-            className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+            className="px-4 py-2 rounded disabled:opacity-50 hover:cursor-pointer"
           >
             Previous
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => setPage((p) => p + 1)}
             disabled={!hasNext}
-            className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+            className="px-4 py-2 rounded disabled:opacity-50 hover:cursor-pointer"
           >
             Next
-          </button>
+          </Button>
         </div>
       </main>
     </div>
