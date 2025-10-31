@@ -9,21 +9,22 @@ const Header = () => {
         {/* left nav */}
         <div className="flex gap-16 items-center text-xl">
           {/* logo */}
-          <div className="flex gap-1">
-            <Image src="./logo.svg" width={32} height={32} alt="logo" />
-            <h1 className="text-3xl font-semibold text-black">CodeforceMates</h1>
-          </div>
+          <Link href="/">
+            <div className="flex gap-1">
+              <Image src="./logo.svg" width={32} height={32} alt="logo" />
+              <h1 className="text-3xl font-semibold text-black">CodeforceMates</h1>
+            </div>
+          </Link>
+
 
 
           <div className="flex gap-4">
             {/* home nav */}
             <Link href="/">Home</Link>
 
-            {/* rated nav */}
-            {/* <Link href="/">Rated</Link> */}
 
             {/* contests nav */}
-            <Link href="/">Contests</Link>
+            <Link href="/contests">Contests</Link>
 
             {/* university mates */}
             <Link href="/universitymates">University mates</Link>
