@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const PAGE_SIZE = 50;
+const PAGE_SIZE = 52;
 const ACTIVE_ONLY = false;
 
 interface CodeforcesUser {

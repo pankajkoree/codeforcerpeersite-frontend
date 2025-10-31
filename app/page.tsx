@@ -13,7 +13,7 @@ interface CodeforcesUser {
   rank?: string;
 }
 
-const PAGE_SIZE = 50;
+const PAGE_SIZE = 52;
 const SKELETON_COUNT = 12;
 
 export default function CodeforcesUsers() {
@@ -25,7 +25,6 @@ export default function CodeforcesUsers() {
       const res = await fetch(`/api/batchRatedCFUsers?start=0`);
       if (!res.ok) throw new Error("Failed to fetch users");
       const json = await res.json();
-      console.log("Fetched:", json);
       return json.data;
     },
     staleTime: Infinity,
@@ -57,12 +56,13 @@ export default function CodeforcesUsers() {
               </Card>
             ))
             : paginatedUsers.map((user: CodeforcesUser) => (
-              <Card key={user.handle} className="p-4">
-                <Image src={user?.avatar} width={24} height={24} alt={user.avatar} />
-                <p className="font-bold">{user.handle}</p>
-                <p className="text-sm text-gray-500">{user.organization || "Unknown"}</p>
+              <Card key={user.handle} className="p-4 hover:cursor-pointer hover:shadow-lg hover:shadow-blue-300">
+                <div className="flex justify-between">
+                  <Image src={user?.avatar} width={48} height={48} alt={user.avatar} />
+                  <p className="font-bold text-xl">{user.handle}</p>
+                </div>
+                <p className="text-lg text-gray-500">{user.organization || "Unknown"}</p>
                 <p className="text-sm">Rating: {user.rating ?? "N/A"}</p>
-                <p className="text-sm">Rank: {user.rank ?? "N/A"}</p>
               </Card>
             ))}
         </div>
