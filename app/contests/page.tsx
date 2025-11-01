@@ -38,6 +38,20 @@ export default function Contest() {
   const hasPrev = page > 0;
   const hasNext = data && (page + 1) * PAGE_SIZE < data.length;
 
+  // const duration = () => {
+  //   paginatedContests.map((contest: CodeforceContest) => {
+
+  //     if (Number(contest.durationSeconds) > 60) {
+  //       const minutes = Number(contest.durationSeconds) / 60
+  //       if (minutes > 60) {
+  //         const hours = minutes / 60
+  //         return hours
+  //       }
+  //       return minutes
+  //     }
+  //   })
+  // }
+
   console.log(paginatedContests);
   return (
     <div className="max-w-full">
@@ -50,7 +64,7 @@ export default function Contest() {
         {/* table for contest display */}
         <table className="flex flex-col gap-2">
           <thead>
-            <tr className="grid grid-cols-[10%_40%_10%_20%_20%] text-left px-4 py-2">
+            <tr className="grid grid-cols-[10%_40%_10%_20%_20%] text-left px-4 py-2 gap-4">
               <th>S.No.</th>
               <th>Name</th>
               <th>Type</th>
@@ -70,9 +84,9 @@ export default function Contest() {
                 </tr>
               ))
               : paginatedContests.map(
-                (contest: CodeforceContest, index: Number) => (
-                  <tr key={contest.id} className="grid grid-cols-[10%_40%_10%_20%_20%] border px-4 py-2 hover:bg-gray-200">
-                    <td>0</td>
+                (contest: CodeforceContest, index: number) => (
+                  <tr key={contest.id} className="grid grid-cols-[10%_40%_10%_20%_20%] border px-4 py-2 hover:bg-gray-100 gap-4 rounded-sm hover:shadow-md hover:shadow-blue-300">
+                    <td>{(page * PAGE_SIZE) + index + 1}</td>
                     <td>{contest.name}</td>
                     <td>{contest.type}</td>
                     <td>{
@@ -86,7 +100,7 @@ export default function Contest() {
                               "Completed" : contest.phase
 
                     }</td>
-                    <td>{contest.durationSeconds}</td>
+                    <td>{Number(contest.durationSeconds) / 60 / 60}{" "}{'hours'}</td>
                   </tr>
                 )
               )}
