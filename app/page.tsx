@@ -74,7 +74,7 @@ export default function CodeforcesUsers() {
             disabled={!hasPrev}
             className="px-4 py-2 rounded disabled:opacity-50 hover:cursor-pointer"
           >
-            Previous
+            Prev
           </Button>
           <Button
             onClick={() => setPage((p) => p + 1)}
