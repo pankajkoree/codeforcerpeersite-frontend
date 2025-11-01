@@ -11,7 +11,8 @@ const Header = () => {
           {/* logo */}
           <Link href="/">
             <div className="flex gap-1">
-              <Image src="./logo.svg" width={32} height={32} alt="logo" />
+              <Image src="./logo.svg" width={32}
+                height={32} alt="logo" />
               <h1 className="text-3xl font-semibold text-black">CodeforceMates</h1>
             </div>
           </Link>

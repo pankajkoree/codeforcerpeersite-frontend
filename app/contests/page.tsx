@@ -5,10 +5,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 
 interface CodeforceContest {
+  id: number;
   name: string;
   type: string;
-  status: string;
-  duration: string;
+  phase: string;
+  durationSeconds: string;
 }
 
 const PAGE_SIZE = 24;
@@ -47,9 +48,9 @@ export default function Contest() {
         </h1>
 
         {/* table for contest display */}
-        <table className="">
+        <table className="flex flex-col gap-2">
           <thead>
-            <tr className="flex gap-2 border-2 border-red-400">
+            <tr className="grid grid-cols-[10%_40%_10%_20%_20%] text-left px-4 py-2">
               <th>S.No.</th>
               <th>Name</th>
               <th>Type</th>
@@ -57,7 +58,7 @@ export default function Contest() {
               <th>Duration</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="flex flex-col gap-4">
             {isLoading
               ? Array.from({ length: SKELETON_COUNT }).map((_, idx) => (
                 <tr key={idx} className="animate-pulse h-8 bg-gray-200 rounded-lg gap-4">
@@ -70,12 +71,22 @@ export default function Contest() {
               ))
               : paginatedContests.map(
                 (contest: CodeforceContest, index: Number) => (
-                  <tr key={contest.name}>
+                  <tr key={contest.id} className="grid grid-cols-[10%_40%_10%_20%_20%] border px-4 py-2 hover:bg-gray-200">
                     <td>0</td>
                     <td>{contest.name}</td>
                     <td>{contest.type}</td>
-                    <td>{contest.status}</td>
-                    <td>{contest.duration}</td>
+                    <td>{
+                      contest.phase === "BEFORE"
+                        ? "Upcoming"
+                        : contest.phase === "CODING"
+                          ? "Ongoing"
+                          : contest.phase === "PENDING_SYSTEM_TEST"
+                            ? "Finalizing results"
+                            : contest.phase === "FINISHED" ?
+                              "Completed" : contest.phase
+
+                    }</td>
+                    <td>{contest.durationSeconds}</td>
                   </tr>
                 )
               )}
