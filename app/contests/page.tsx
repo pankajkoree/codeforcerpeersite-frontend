@@ -38,19 +38,6 @@ export default function Contest() {
   const hasPrev = page > 0;
   const hasNext = data && (page + 1) * PAGE_SIZE < data.length;
 
-  // const duration = () => {
-  //   paginatedContests.map((contest: CodeforceContest) => {
-
-  //     if (Number(contest.durationSeconds) > 60) {
-  //       const minutes = Number(contest.durationSeconds) / 60
-  //       if (minutes > 60) {
-  //         const hours = minutes / 60
-  //         return hours
-  //       }
-  //       return minutes
-  //     }
-  //   })
-  // }
 
   console.log(paginatedContests);
   return (
