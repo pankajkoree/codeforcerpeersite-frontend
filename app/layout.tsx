@@ -22,7 +22,7 @@ export default function RootLayout({
         <title>Page Title</title>
       </head>
 
-      <body className="antialiased text-gray-600 min-h-screen flex flex-col">
+      <body className="antialiased text-gray-600 min-h-screen flex flex-col bg-linear-to-r from-blue-100 via-green-50  to-blue-100">
         <QueryClientProvider client={queryClient}>
           <Header />
 
