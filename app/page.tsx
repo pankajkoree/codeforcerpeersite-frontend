@@ -52,7 +52,8 @@ export default function CodeforcesUsers() {
                 key={idx}
                 className="animate-pulse h-48 bg-gray-200 rounded-lg gap-4"
               >
-
+                <p className="flex p-2 h-8 bg-gray-300"></p>
+                <p className="flex p-2 h-8 bg-gray-300"></p>
               </Card>
             ))
             : paginatedUsers.map((user: CodeforcesUser) => (
