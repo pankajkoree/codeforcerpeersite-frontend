@@ -1,18 +1,17 @@
 'use client'
 
 import getUsers from "@/lib/user/user"
+import axios from "axios"
 import { error } from "console"
 import { useEffect, useState } from "react"
 
-const Signup = () => {
+const Signup = async () => {
 
-    const [users, setUsers] = useState([])
+    const regiser = async () => {
+        const response = await axios.post('https://codeforcerpeersite-backend.onrender.com/user')
+    }
 
-    useEffect(() => {
-        getUsers().then(setUsers).catch(console.error)
-    }, [])
 
-    console.log(users)
     return (
         <div>
             <h1>signup page</h1>
