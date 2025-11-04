@@ -30,7 +30,7 @@ export default function Footer() {
                     </a>
 
                     <a
-                        href="https://discord.gg/fS8ccnPE"
+                        href="https://discord.gg/p7BbYy5KtT"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Discord"
