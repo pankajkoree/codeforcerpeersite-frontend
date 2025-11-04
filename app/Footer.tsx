@@ -5,7 +5,7 @@ export default function Footer() {
                 {/* left nav */}
                 <div className="flex gap-16 items-center text-sm">
                     {/* logo */}
-                    <h1>Building in public <a href="https://github.com/pankajkoree">@pankajkoree</a>  </h1>
+                    <h1>Building in public <a href="https://x.com/pankajkoree0" target="_blank">@pankajkoree</a>  </h1>
                 </div>
                 {/* left nav */}
 
