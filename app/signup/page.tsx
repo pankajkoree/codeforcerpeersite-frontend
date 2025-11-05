@@ -5,9 +5,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import axios from "axios";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const Signup = () => {
+    const router = useRouter()
     const [error, setError] = useState("");
 
     const [users, setUsers] = useState({
@@ -50,9 +53,11 @@ const Signup = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            
+            const response = axios.post('https://codeforcerpeersite-backend.onrender.com/register', newUsers)
+            toast.success("Successfully signed up")
+            router.push("/login")
         } catch (error) {
-            
+            toast.error("unable to register")
         }
     };
 
@@ -112,7 +117,7 @@ const Signup = () => {
                     {/* password */}
                     <div className="relative">
                         <Input
-                            type="text"
+                            type="password"
                             id="password"
                             value={users.password}
                             required
@@ -130,7 +135,7 @@ const Signup = () => {
                     {/* Confirm password */}
                     <div className="relative">
                         <Input
-                            type="text"
+                            type="password"
                             id="confirmPassword"
                             value={users.confirmPassword}
                             required
