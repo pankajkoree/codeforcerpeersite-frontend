@@ -49,7 +49,11 @@ const Signup = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(newUsers);
+        try {
+            
+        } catch (error) {
+            
+        }
     };
 
     return (

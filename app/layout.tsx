@@ -5,6 +5,7 @@ import { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./globals.css"
+import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({
   children,
@@ -30,7 +31,10 @@ export default function RootLayout({
           <main className="flex-1">
             {children}
           </main>
-
+          <Toaster
+            position="top-right"
+            reverseOrder={false}
+          />
           <Footer />
         </QueryClientProvider>
       </body>
