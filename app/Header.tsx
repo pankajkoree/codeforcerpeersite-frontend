@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false)
   return (
     <div className="sticky top-0 z-50 w-full border-b-2 border-gray-400">
-      <nav className="flex justify-between items-center px-8 py-4 bg-linear-to-r from-blue-100 via-green-50  to-blue-100">
+      <nav className="flex justify-between items-center w-[80%] mx-auto px-8 py-4 bg-linear-to-r from-blue-100 via-green-50  to-blue-100">
         {/* left nav */}
         <div className="flex gap-16 items-center text-xl">
           {/* logo */}
@@ -44,7 +47,7 @@ const Header = () => {
 
 
           {/* profile nav */}
-          <div className="flex items-center gap-2 hover:cursor-pointer rounded-sm hover:bg-blue-400 hover:text-white px-2 py-2 group">
+          <div className="flex items-center gap-2 hover:cursor-pointer rounded-sm hover:bg-blue-400 hover:text-white px-2 py-2 group" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
             {/* user icon */}
             <svg fill="none" stroke="currentColor" width="20px" height="20px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" className="stroke-gray-800 group-hover:stroke-white">
               <path d="M8 .5A7.77 7.77 0 0 0 0 8a7.77 7.77 0 0 0 8 7.5A7.77 7.77 0 0 0 16 8 7.77 7.77 0 0 0 8 .5zM5.16 13.67A2.84 2.84 0 0 1 8 11.51a2.82 2.82 0 0 1 2.84 2.16 7.24 7.24 0 0 1-5.68 0zm6.84-.61a4.09 4.09 0 0 0-4-2.77 4.09 4.09 0 0 0-3.95 2.78A6.14 6.14 0 0 1 1.25 8 6.52 6.52 0 0 1 8 1.75 6.52 6.52 0 0 1 14.75 8 6.11 6.11 0 0 1 12 13.06z" />
@@ -67,6 +70,31 @@ const Header = () => {
               </g>
             </svg>
           </div>
+
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.15 }}
+                className="absolute flex flex-col w-40 gap-4 shadow-lg shadow-gray-600 border z-50 right-8 top-14"
+              >
+                <Link
+                  href="/docs/intro"
+                  className="hover:text-blue-500  shadow shadow-gray-600 hover:shadow-lg"
+                >
+                  Intro
+                </Link>
+                <Link
+                  href="/docs/products"
+                  className="hover:text-blue-500  shadow shadow-gray-600 hover:shadow-lg"
+                >
+                  Products
+                </Link>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
         {/* end right nav */}
 
