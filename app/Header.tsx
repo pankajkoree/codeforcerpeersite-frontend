@@ -78,19 +78,28 @@ const Header = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
                 transition={{ duration: 0.15 }}
-                className="absolute flex flex-col w-40 gap-4 shadow-lg shadow-gray-600 border z-50 right-8 top-14"
+                onMouseEnter={() => setIsOpen(true)}
+                onMouseLeave={() => setIsOpen(false)}
+                className="absolute flex flex-col w-60 gap-4 shadow-md shadow-blue-200 border border-green-200 bg-conic-90 from-gray-100 via-zinc-200 to-gray-100 z-50 right-55 top-14 p-6 rounded-sm font-semibold"
               >
-                <Link
-                  href="/docs/intro"
-                  className="hover:text-blue-500  shadow shadow-gray-600 hover:shadow-lg"
-                >
-                  Intro
+                {/* signup */}
+                <Link href="/signup" className="flex justify-between border-b-2 border-gray-400 hover:cursor-pointer hover:bg-white p-2">
+                  <span>New user?</span>
+                  <button className="hover:cursor-pointer">Signup</button>
                 </Link>
+
+                {/* profile */}
                 <Link
-                  href="/docs/products"
-                  className="hover:text-blue-500  shadow shadow-gray-600 hover:shadow-lg"
+                  href="/profile"
                 >
-                  Products
+                  Profile
+                </Link>
+
+                {/* mates */}
+                <Link
+                  href="/universitymates"
+                >
+                  Mates
                 </Link>
               </motion.div>
             )}
