@@ -62,7 +62,7 @@ export default function Contest() {
           <tbody className="flex flex-col gap-4">
             {isLoading
               ? Array.from({ length: SKELETON_COUNT }).map((_, idx) => (
-                <tr key={idx} className="animate-pulse h-8 bg-gray-200 rounded-lg gap-4">
+                <tr key={idx} className="animate-pulse h-8 bg-gray-200 rounded-sm gap-4">
                   <td></td>
                   <td></td>
                   <td></td>
