@@ -20,11 +20,10 @@ const Login = () => {
         e.preventDefault()
         try {
             const response = await axios.post('https://codeforcerpeersite-backend.onrender.com/login', loginCredentials)
-            console.log(response)
-            if (response.data.status === 200) {
-                console.log(response.data.status)
+            if (response.status === 200) {
+                console.log(response.status)
                 toast.success("successfully logged in")
-                router.push("/profile")
+                router.push(`/profile/${response.data.data._id}`)
             }
             else {
                 toast.error("unable to login")
