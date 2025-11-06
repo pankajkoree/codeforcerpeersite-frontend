@@ -54,7 +54,7 @@ const Header = () => {
               <path d="M8.05 4.3A2.33 2.33 0 0 0 5.8 6.7a2.33 2.33 0 0 0 2.25 2.4 2.33 2.33 0 0 0 2.25-2.4 2.33 2.33 0 0 0-2.25-2.4zm0 3.55a1.08 1.08 0 0 1-1-1.15 1.08 1.08 0 0 1 1-1.15 1.08 1.08 0 0 1 1 1.15 1.08 1.08 0 0 1-1 1.15z" />
             </svg>
             {/* link for login */}
-            <Link href="/">Login</Link>
+            <Link href="/login">Login</Link>
 
             {/* icon for arrow */}
             <svg fill="none" height="15px" width="15px" fontWeight="800" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
@@ -80,24 +80,24 @@ const Header = () => {
                 transition={{ duration: 0.15 }}
                 onMouseEnter={() => setIsOpen(true)}
                 onMouseLeave={() => setIsOpen(false)}
-                className="absolute flex flex-col w-60 gap-4 shadow-md shadow-blue-200 border border-green-200 bg-conic-90 from-gray-100 via-zinc-200 to-gray-100 z-50 right-55 top-14 p-6 rounded-sm font-semibold"
+                className="absolute flex flex-col w-60 shadow-md shadow-blue-200 border border-green-200 bg-conic-90 from-gray-100 via-zinc-200 to-gray-100 z-50 right-55 top-14 rounded-sm font-semibold"
               >
                 {/* signup */}
-                <Link href="/signup" className="flex justify-between border-b-2 border-gray-400 hover:cursor-pointer hover:bg-white p-2">
+                <Link href="/signup" className="flex justify-between border-b-2 border-gray-400 hover:cursor-pointer hover:bg-gray-300 px-4 py-2">
                   <span>New user?</span>
                   <button className="hover:cursor-pointer">Signup</button>
                 </Link>
 
                 {/* profile */}
                 <Link
-                  href="/profile"
+                  href="/profile" className="border-b-2 border-gray-400 hover:cursor-pointer hover:bg-gray-300 px-4 py-2"
                 >
                   Profile
                 </Link>
 
                 {/* mates */}
                 <Link
-                  href="/universitymates"
+                  href="/universitymates" className="hover:cursor-pointer hover:bg-gray-300 px-4 py-2"
                 >
                   Mates
                 </Link>
