@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import axios from "axios"
 import Image from "next/image"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import toast from "react-hot-toast"
@@ -43,7 +44,7 @@ const Login = () => {
                     <p>Login to your account</p>
                 </div>
 
-                {/* signup form */}
+                {/* login form */}
                 <form
                     onSubmit={handleSubmit}
                     className="flex flex-col text-[#55189f] w-[30%]"
@@ -86,6 +87,12 @@ const Login = () => {
                     </div>
 
                     <Button variant="signup">Register</Button>
+
+                    <section className="flex gap-2 justify-center mt-2">
+                        Don't have an account ?
+                        <Link href="/signup">Signup </Link>
+                    </section>
+
                 </form>
             </main>
         </div>

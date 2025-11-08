@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -206,6 +207,11 @@ const Signup = () => {
                     </div>
 
                     <Button variant="signup">Register</Button>
+
+                    <section className="flex gap-2 justify-center mt-2">
+                        Already have an account ?
+                        <Link href="/login">Login </Link>
+                    </section>
                 </form>
             </main>
         </div>
