@@ -6,6 +6,9 @@ import Header from "./Header";
 import Footer from "./Footer";
 import "./globals.css"
 import { Toaster } from "react-hot-toast";
+import axios from "axios";
+
+axios.defaults.withCredentials = true
 
 export default function RootLayout({
   children,
