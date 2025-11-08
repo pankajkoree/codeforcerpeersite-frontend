@@ -47,7 +47,7 @@ const Login = () => {
                 {/* login form */}
                 <form
                     onSubmit={handleSubmit}
-                    className="flex flex-col text-[#55189f] w-[30%]"
+                    className="flex flex-col text-[#55189f] w-[30%] text-sm"
                 >
 
                     {/* email */}
@@ -84,6 +84,7 @@ const Login = () => {
                         >
                             Password
                         </Label>
+
                     </div>
 
                     <Button variant="signup">Register</Button>
