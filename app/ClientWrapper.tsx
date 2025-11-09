@@ -1,13 +1,15 @@
 "use client";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import { useState } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "react-hot-toast";
+import { AuthProvider } from "@/context/AuthContext";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 import Header from "./Header";
 import Footer from "./Footer";
 
-import { Toaster } from "react-hot-toast";
-import { AuthProvider } from "@/context/AuthContext";
 const ClientWrapper = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(() => new QueryClient());
   return (
@@ -15,9 +17,8 @@ const ClientWrapper = ({ children }: { children: React.ReactNode }) => {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <Header />
-
-          {/* Main content grows to fill available space */}
           <main className="flex-1">{children}</main>
+          <ReactQueryDevtools initialIsOpen={false} />
           <Toaster position="top-right" reverseOrder={false} />
           <Footer />
         </AuthProvider>
