@@ -3,15 +3,17 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useAuth } from "@/context/AuthContext"
 import axios from "axios"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 
 const Login = () => {
     const router = useRouter()
+    const { login, isAuthenticated, user, isLoading } = useAuth()
     const [loginCredentials, setLoginCredentials] = useState({
         email: "",
         password: ""
@@ -20,15 +22,13 @@ const Login = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            const response = await axios.post('https://codeforcerpeersite-backend.onrender.com/login', loginCredentials)
-            if (response.status === 200) {
-                console.log(response.status)
-                toast.success("successfully logged in")
-                router.push(`/profile/${response.data.data._id}`)
-            }
-            else {
-                toast.error("unable to login")
-            }
+            await login(loginCredentials.email, loginCredentials.password)
+            toast.success("successfully logged in")
+            useEffect(() => {
+                if (isAuthenticated && user?._id) {
+                    router.push(`/profile/${user._id}`)
+                }
+            }, [isAuthenticated, user, router])
         } catch (error) {
             toast.error("invalid credentials")
         }
@@ -87,7 +87,7 @@ const Login = () => {
 
                     </div>
 
-                    <Button variant="signup">Register</Button>
+                    <Button variant="signup" disabled={isLoading}>{isLoading ? "Logging in..." : "Login"}</Button>
 
                     <section className="flex gap-2 justify-center mt-2">
                         Don't have an account ?
