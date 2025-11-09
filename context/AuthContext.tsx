@@ -30,8 +30,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const { data: user, isLoading } = useQuery<User | null>({
         queryKey: ["currentUser"],
         queryFn: async () => {
-            const res = await api.get("/me");
-            return res.data.user;
+            try {
+                const res = await api.get("/profile", { withCredentials: true });
+                return res.data.user;
+            } catch (error) {
+                return null
+            }
         },
         retry: false,
     });
