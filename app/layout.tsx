@@ -1,45 +1,23 @@
-'use client'
-
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
 import "./globals.css"
-import { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 axios.defaults.withCredentials = true
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const [queryClient] = useState(() => new QueryClient());
+// app/layout.tsx
+import "./globals.css";
+import { ReactNode } from "react";
+import ClientWrapper from "./ClientWrapper";
+
+export const metadata = {
+  title: "Codeforce Peersite",
+  description: "Codeforce users can see the users from their own organization or university to get help from them",
+};
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <head>
-        <meta
-          name="description"
-          content="made for getting help with other codeforce users"
-        />
-        <title>Page Title</title>
-      </head>
-
-      <body className="antialiased text-gray-600 min-h-screen flex flex-col bg-linear-to-r from-blue-100 via-green-50  to-blue-100">
-        <QueryClientProvider client={queryClient}>
-          <Header />
-
-          {/* Main content grows to fill available space */}
-          <main className="flex-1">
-            {children}
-          </main>
-          <Toaster
-            position="top-right"
-            reverseOrder={false}
-          />
-          <Footer />
-        </QueryClientProvider>
+      <body>
+        <ClientWrapper>{children}</ClientWrapper>
       </body>
     </html>
   );
