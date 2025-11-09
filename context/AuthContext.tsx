@@ -31,6 +31,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         queryKey: ["currentUser"],
         queryFn: async () => {
             try {
+                // try catch could do
                 const res = await api.get("/profile", { withCredentials: true });
                 return res.data.user;
             } catch (error) {
