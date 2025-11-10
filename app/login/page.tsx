@@ -19,16 +19,18 @@ const Login = () => {
         password: ""
     })
 
+    useEffect(() => {
+        if (isAuthenticated && user?._id) {
+            router.push(`/profile/${user._id}`)
+        }
+    }, [isAuthenticated, user, router])
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
             await login(loginCredentials.email, loginCredentials.password)
             toast.success("successfully logged in")
-            useEffect(() => {
-                if (isAuthenticated && user?._id) {
-                    router.push(`/profile/${user._id}`)
-                }
-            }, [isAuthenticated, user, router])
+
         } catch (error) {
             toast.error("invalid credentials")
         }
