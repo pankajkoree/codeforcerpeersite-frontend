@@ -26,9 +26,8 @@ const Login = () => {
         try {
             await login(loginCredentials.email, loginCredentials.password)
             toast.success("successfully logged in")
-            if (isAuthenticated && user?._id) {
-                console.log(user)
-            }
+            console.log(`Userdata: ${user}`)
+
         } catch (error) {
             toast.error("invalid credentials")
         }

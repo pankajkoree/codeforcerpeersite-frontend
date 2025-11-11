@@ -27,6 +27,28 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const queryClient = useQueryClient();
 
+
+    const loginMutation = useMutation({
+        mutationKey: ['login'],
+        mutationFn: async (data: { email: string; password: string }) => {
+            const res = await api.post("/login", data, { withCredentials: true });
+            return res.data
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["currentUser"] });
+        },
+    });
+
+    const logoutMutation = useMutation({
+        mutationKey: ['logout'],
+        mutationFn: async () => {
+            await api.post("/logout", {}, { withCredentials: true });
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["currentUser"] });
+        },
+    });
+
     const { data: user, isLoading } = useQuery<User | null>({
         queryKey: ["currentUser"],
         queryFn: async () => {
@@ -43,27 +65,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         retry: false,
     });
 
-    const loginMutation = useMutation({
-        mutationFn: async (data: { email: string; password: string }) => {
-            await api.post("/login", data);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["currentUser"] });
-        },
-    });
-
-    const logoutMutation = useMutation({
-        mutationFn: async () => {
-            await api.post("/logout");
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["currentUser"] });
-        },
-    });
 
     const login = async (email: string, password: string) => {
         try {
-            await loginMutation.mutateAsync({ email, password });
+            const data = await loginMutation.mutateAsync({ email, password });
+            const updatedUser = await queryClient.fetchQuery({
+                queryKey: ['currentUser'],
+                queryFn: async () => {
+                    const res = await api.get('/profile', { withCredentials: true })
+                    return res.data?.user || null
+                }
+            })
+            return updatedUser
         } catch (error) {
             throw error
         }
@@ -72,6 +85,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const logout = async () => {
         await logoutMutation.mutateAsync();
     };
+
+
 
     return (
         <AuthContext.Provider
