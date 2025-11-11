@@ -19,11 +19,7 @@ const Login = () => {
         password: ""
     })
 
-    useEffect(() => {
-        if (isAuthenticated && user?._id) {
-            router.push(`/profile/${user._id}`)
-        }
-    }, [isAuthenticated, user, router])
+
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -35,6 +31,11 @@ const Login = () => {
             toast.error("invalid credentials")
         }
     }
+        useEffect(() => {
+        if (isAuthenticated && user?._id) {
+            router.push(`/profile/${user._id}`)
+        }
+    }, [isAuthenticated, user, router])
 
     return (
         <div className="w-screen min-h-[calc(100dvh-120px)] grid place-items-center overflow-x-hidden overflow-y-auto">
