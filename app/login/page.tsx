@@ -31,7 +31,7 @@ const Login = () => {
             toast.error("invalid credentials")
         }
     }
-        useEffect(() => {
+    useEffect(() => {
         if (isAuthenticated && user?._id) {
             router.push(`/profile/${user._id}`)
         }
