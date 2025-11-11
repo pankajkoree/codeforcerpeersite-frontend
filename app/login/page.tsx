@@ -26,16 +26,13 @@ const Login = () => {
         try {
             await login(loginCredentials.email, loginCredentials.password)
             toast.success("successfully logged in")
-
+            if (isAuthenticated && user?._id) {
+                console.log(user)
+            }
         } catch (error) {
             toast.error("invalid credentials")
         }
     }
-    useEffect(() => {
-        if (isAuthenticated && user?._id) {
-            router.push(`/profile/${user._id}`)
-        }
-    }, [isAuthenticated, user, router])
 
     return (
         <div className="w-screen min-h-[calc(100dvh-120px)] grid place-items-center overflow-x-hidden overflow-y-auto">

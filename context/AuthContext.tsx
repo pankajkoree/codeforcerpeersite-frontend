@@ -32,7 +32,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         queryFn: async () => {
             try {
                 const res = await api.get("/profile", { withCredentials: true });
-                return res.data.user;
+                if (res.data?.user) {
+                    return res.data.user
+                }
+                return null;
             } catch (error) {
                 return null
             }
