@@ -19,6 +19,7 @@ interface AuthContextType {
     isLoading: boolean;
     login: (email: string, password: string) => Promise<void>;
     logout: () => Promise<void>;
+    refetchUser: () => void
 }
 
 // ---------- Context ----------
@@ -28,12 +29,17 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const queryClient = useQueryClient();
 
+    const refetchUser = () => queryClient.invalidateQueries({ queryKey: ["currentUser"] });
 
     const loginMutation = useMutation({
         mutationKey: ['login'],
         mutationFn: async (data: { email: string; password: string }) => {
-            const res = await api.post("/login", data, { withCredentials: true });
-            return res.data
+            try {
+                const res = await api.post("/login", data, { withCredentials: true })
+                return res.data
+            } catch (error: any) {
+                throw new Error(error.response?.data?.message || "Login failed")
+            }
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["currentUser"] });
@@ -64,23 +70,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             }
         },
         retry: false,
+        staleTime: 1000 * 60 * 5
     });
 
 
     const login = async (email: string, password: string) => {
-        try {
-            const data = await loginMutation.mutateAsync({ email, password });
-            const updatedUser = await queryClient.fetchQuery({
-                queryKey: ['currentUser'],
-                queryFn: async () => {
-                    const res = await api.get('/profile', { withCredentials: true })
-                    return res.data?.user || null
-                }
-            })
-            return updatedUser
-        } catch (error) {
-            throw error
-        }
+
+        await loginMutation.mutateAsync({ email, password });
+
     };
 
     const logout = async () => {
@@ -97,6 +94,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 isLoading,
                 login,
                 logout,
+                refetchUser
             }}
         >
             {children}
