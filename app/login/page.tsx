@@ -7,7 +7,7 @@ import { useAuth } from "@/context/AuthContext"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 
 const Login = () => {
@@ -22,15 +22,18 @@ const Login = () => {
         e.preventDefault()
         try {
             await login(loginCredentials.email, loginCredentials.password)
-            toast.success("successfully logged in")
-            if (isAuthenticated && user) {
-                router.push(`/profile/${user.name}+${user._id}`)
-            }
-
         } catch (error) {
             toast.error("invalid credentials")
         }
     }
+
+    useEffect(() => {
+        if (isAuthenticated && user) {
+            toast.success("successfully logged in")
+            router.push(`/profile/${user.name}+${user._id}`)
+
+        }
+    }, [isAuthenticated, user])
 
 
 

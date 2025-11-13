@@ -28,7 +28,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 // ---------- Provider ----------
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const queryClient = useQueryClient();
-    const [token, setToken] = useState<string | null>(null)
 
     const refetchUser = () => queryClient.invalidateQueries({ queryKey: ["currentUser"] });
 
@@ -60,7 +59,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const { data: user, isLoading } = useQuery<User | null>({
         queryKey: ["currentUser"],
         queryFn: async () => {
-            if (!token) return null
             try {
                 const res = await api.get("/profile", {
                     withCredentials: true
@@ -73,7 +71,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 return null
             }
         },
-        enabled: !!token,
         retry: false,
         staleTime: 1000 * 60 * 5
     });
@@ -81,9 +78,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const login = async (email: string, password: string) => {
 
-        const data = await loginMutation.mutateAsync({ email, password });
-        setToken(data.token)
-        return data.data
+        await loginMutation.mutateAsync({ email, password });
+
 
     };
 
