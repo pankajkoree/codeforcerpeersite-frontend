@@ -3,9 +3,11 @@ import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useAuth } from "@/context/AuthContext";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const { user } = useAuth()
   return (
     <div className="sticky top-0 z-50 w-full border-b-2 border-gray-400">
       <nav className="flex justify-between items-center w-[80%] mx-auto px-8 py-4 bg-linear-to-r from-blue-100 via-green-50  to-blue-100">
@@ -30,7 +32,7 @@ const Header = () => {
             <Link href="/contests" className="hover:border-b-2 hover:border-blue-400">Contests</Link>
 
             {/* university mates */}
-            <Link href="/universitymates" className="hover:border-b-2 hover:border-blue-400">University mates</Link>
+            <Link href="/universitymates" className="hover:border-b-2 hover:border-blue-400">Mates</Link>
           </div>
         </div>
         {/* left nav */}
@@ -54,7 +56,7 @@ const Header = () => {
               <path d="M8.05 4.3A2.33 2.33 0 0 0 5.8 6.7a2.33 2.33 0 0 0 2.25 2.4 2.33 2.33 0 0 0 2.25-2.4 2.33 2.33 0 0 0-2.25-2.4zm0 3.55a1.08 1.08 0 0 1-1-1.15 1.08 1.08 0 0 1 1-1.15 1.08 1.08 0 0 1 1 1.15 1.08 1.08 0 0 1-1 1.15z" />
             </svg>
             {/* link for login */}
-            <Link href="/login">Login</Link>
+            <Link href="/login">{user ? user.name : "Login"}</Link>
 
             {/* icon for arrow */}
             <svg fill="none" height="15px" width="15px" fontWeight="800" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
