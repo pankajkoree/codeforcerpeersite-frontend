@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAuth } from "@/context/AuthContext";
+import { P } from "framer-motion/dist/types.d-BJcRxCew";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -56,7 +57,10 @@ const Header = () => {
               <path d="M8.05 4.3A2.33 2.33 0 0 0 5.8 6.7a2.33 2.33 0 0 0 2.25 2.4 2.33 2.33 0 0 0 2.25-2.4 2.33 2.33 0 0 0-2.25-2.4zm0 3.55a1.08 1.08 0 0 1-1-1.15 1.08 1.08 0 0 1 1-1.15 1.08 1.08 0 0 1 1 1.15 1.08 1.08 0 0 1-1 1.15z" />
             </svg>
             {/* link for login */}
-            <Link href="/login">{user ? user.name : "Login"}</Link>
+            {
+              user ? <Link href={`/profile/${user.name}+${user._id}`}>{user.name}</Link> : <Link href="/login">Login</Link>
+            }
+
 
             {/* icon for arrow */}
             <svg fill="none" height="15px" width="15px" fontWeight="800" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
@@ -98,11 +102,13 @@ const Header = () => {
                 </Link>
 
                 {/* profile */}
-                <Link
-                  href="/profile" className="hover:cursor-pointer hover:bg-gray-300 px-4 py-2"
-                >
-                  Profile
-                </Link>
+                {user ?
+                  <Link
+                    href={`/profile/${user.name}+${user._id}`} className="hover:cursor-pointer hover:bg-gray-300 px-4 py-2"
+                  >
+                    Profile
+                  </Link>
+                  : <p className="hover:cursor-pointer hover:bg-gray-300 px-4 py-2">Profile</p>}
 
                 {/* mates */}
                 <Link
