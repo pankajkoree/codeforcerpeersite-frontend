@@ -19,14 +19,12 @@ const Login = () => {
         password: ""
     })
 
-
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
             await login(loginCredentials.email, loginCredentials.password)
             toast.success("successfully logged in")
-            console.log(`Userdata: ${user}`)
+            router.push(`/profile/${user?._id}`)
 
         } catch (error) {
             toast.error("invalid credentials")
