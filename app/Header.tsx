@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAuth } from "@/context/AuthContext";
-import { P } from "framer-motion/dist/types.d-BJcRxCew";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
