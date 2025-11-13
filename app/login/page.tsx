@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useAuth } from "@/context/AuthContext"
-import axios from "axios"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -13,7 +12,7 @@ import toast from "react-hot-toast"
 
 const Login = () => {
     const router = useRouter()
-    const { login, isAuthenticated, user, isLoading } = useAuth()
+    const { login, user, isLoading } = useAuth()
     const [loginCredentials, setLoginCredentials] = useState({
         email: "",
         password: ""
