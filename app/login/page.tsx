@@ -23,12 +23,16 @@ const Login = () => {
         try {
             await login(loginCredentials.email, loginCredentials.password)
             toast.success("successfully logged in")
-            router.push(`/profile/${user?._id}`)
+            if (user) {
+                router.push(`/profile/${user?._id}`)
+            }
 
         } catch (error) {
             toast.error("invalid credentials")
         }
     }
+
+
 
     return (
         <div className="w-screen min-h-[calc(100dvh-120px)] grid place-items-center overflow-x-hidden overflow-y-auto">
