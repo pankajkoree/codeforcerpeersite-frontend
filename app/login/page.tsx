@@ -12,7 +12,7 @@ import toast from "react-hot-toast"
 
 const Login = () => {
     const router = useRouter()
-    const { login, user, isLoading } = useAuth()
+    const { login, isAuthenticated, user, isLoading } = useAuth()
     const [loginCredentials, setLoginCredentials] = useState({
         email: "",
         password: ""
@@ -23,8 +23,8 @@ const Login = () => {
         try {
             await login(loginCredentials.email, loginCredentials.password)
             toast.success("successfully logged in")
-            if (user) {
-                router.push(`/profile/${user?._id}`)
+            if (isAuthenticated && user) {
+                router.push(`/profile/${user.name}+${user._id}`)
             }
 
         } catch (error) {

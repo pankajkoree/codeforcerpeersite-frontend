@@ -63,9 +63,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             if (!token) return null
             try {
                 const res = await api.get("/profile", {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                    withCredentials: true
                 });
                 if (res.data?.user) {
                     return res.data.user
