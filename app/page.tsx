@@ -57,7 +57,7 @@ export default function CodeforcesUsers() {
               </Card>
             ))
             : paginatedUsers.map((user: CodeforcesUser) => (
-              <Card key={user.handle} className="p-4 hover:cursor-pointer hover:shadow-lg hover:shadow-blue-300">
+              <Card key={user.handle} className="p-4 hover:cursor-pointer hover:border-2 hover:animate-border-color hover:shadow-lg hover:shadow-blue-300">
                 <div className="flex justify-between">
                   <Image src={user?.avatar} width={48} height={48} alt={user.avatar} />
                   <p className="font-bold text-xl">{user.handle}</p>
