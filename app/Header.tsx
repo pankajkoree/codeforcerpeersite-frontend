@@ -49,9 +49,9 @@ const Header = () => {
 
 
           {/* profile nav */}
-          <div className="flex items-center gap-2 hover:cursor-pointer rounded-sm hover:bg-blue-400 hover:text-white px-2 py-2 group" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+          <div className="flex gap-2 items-center hover:cursor-pointer rounded-sm hover:bg-blue-400 hover:text-white px-2 py-2 group" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
             {/* user icon */}
-            <svg fill="none" stroke="currentColor" width="20px" height="20px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" className="stroke-gray-800 group-hover:stroke-white">
+            <svg fill="none" stroke="currentColor" width="25px" height="20px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" className="stroke-gray-800 group-hover:stroke-white">
               <path d="M8 .5A7.77 7.77 0 0 0 0 8a7.77 7.77 0 0 0 8 7.5A7.77 7.77 0 0 0 16 8 7.77 7.77 0 0 0 8 .5zM5.16 13.67A2.84 2.84 0 0 1 8 11.51a2.82 2.82 0 0 1 2.84 2.16 7.24 7.24 0 0 1-5.68 0zm6.84-.61a4.09 4.09 0 0 0-4-2.77 4.09 4.09 0 0 0-3.95 2.78A6.14 6.14 0 0 1 1.25 8 6.52 6.52 0 0 1 8 1.75 6.52 6.52 0 0 1 14.75 8 6.11 6.11 0 0 1 12 13.06z" />
               <path d="M8.05 4.3A2.33 2.33 0 0 0 5.8 6.7a2.33 2.33 0 0 0 2.25 2.4 2.33 2.33 0 0 0 2.25-2.4 2.33 2.33 0 0 0-2.25-2.4zm0 3.55a1.08 1.08 0 0 1-1-1.15 1.08 1.08 0 0 1 1-1.15 1.08 1.08 0 0 1 1 1.15 1.08 1.08 0 0 1-1 1.15z" />
             </svg>
@@ -85,10 +85,10 @@ const Header = () => {
                 transition={{ duration: 0.15 }}
                 onMouseEnter={() => setIsOpen(true)}
                 onMouseLeave={() => setIsOpen(false)}
-                className="absolute flex flex-col w-60 shadow-md shadow-blue-200 border border-green-200 bg-conic-90 from-gray-100 via-zinc-200 to-gray-100 z-50 right-55 top-14 rounded-sm font-semibold"
+                className="absolute flex flex-col w-60 shadow-md shadow-blue-200 border border-green-200 bg-conic-90 from-gray-100 via-zinc-200 to-gray-100 z-50 right-8 top-15 rounded-sm font-semibold"
               >
                 {/* signup */}
-                <Link href="/signup" className="flex justify-between hover:cursor-pointer hover:bg-gray-300 px-4 py-2">
+                <Link href="/signup" className="flex justify-between hover:cursor-pointer hover:bg-gray-300 rounded-tl-sm rounded-tr-sm px-4 py-2">
                   <span>New user?</span>
                   <button className="hover:cursor-pointer">Signup</button>
                 </Link>
@@ -111,7 +111,7 @@ const Header = () => {
 
                 {/* mates */}
                 <Link
-                  href="/universitymates" className="hover:cursor-pointer hover:bg-gray-300 px-4 py-2"
+                  href="/universitymates" className="hover:cursor-pointer hover:bg-gray-300 rounded-bl-sm rounded-br-sm px-4 py-2"
                 >
                   Mates
                 </Link>
