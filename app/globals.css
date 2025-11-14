@@ -121,12 +121,13 @@
   }
 }
 
+/* animation for single color border */
 @keyframes borderColorAnimate {
   0%,
   100% {
     border-color: #a8c4ff;
   }
-  50%{
+  50% {
     border-color: rgb(223, 81, 128);
   }
 
@@ -139,3 +140,22 @@
 @utility animate-border-color {
   animation: borderColorAnimate 5s ease-in-out infinite;
 }
+/* animation for single color border */
+
+/* animation for gradient color border */
+@utility border-animate-gradient {
+  background: linear-gradient(90deg, #ff0080, #7928ca, #2afadf, #ff0080);
+  animation: borderGradientAnimation 4s linear infinite;
+}
+@keyframes borderGradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+/* animation for gradient color border */

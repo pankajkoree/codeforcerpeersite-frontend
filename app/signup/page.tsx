@@ -7,7 +7,7 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const Signup = () => {
@@ -16,18 +16,22 @@ const Signup = () => {
 
     const [users, setUsers] = useState({
         name: "",
+        cfusername: "",
         email: "",
         password: "",
         confirmPassword: "",
         gender: "",
         university: "",
+        country: "",
     });
     const [newUsers, setNewUsers] = useState({
         name: "",
+        cfusername: "",
         email: "",
         password: "",
         gender: "",
         university: "",
+        country: "",
     });
 
     const handleConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,10 +47,12 @@ const Signup = () => {
         if (users.password && users.confirmPassword && users.password === users.confirmPassword) {
             setNewUsers({
                 name: users.name,
+                cfusername: users.cfusername,
                 email: users.email,
                 password: users.password,
                 gender: users.gender,
                 university: users.university,
+                country: users.country,
             })
         }
     }, [users])
@@ -97,6 +103,25 @@ const Signup = () => {
                         </Label>
                     </div>
 
+                    {/* cfusername */}
+                    <div className="relative">
+                        <Input
+                            type="text"
+                            id="cfusername"
+                            value={users.cfusername}
+                            required
+                            className="peer mt-4 w-full pt-0 tracking-[1px] mb-[30px] border-2 border-blue-200 outline-none bg-transparent focus:border-[#55189f] transition-colors duration-300 rounded-sm"
+                            onChange={(e) => setUsers({ ...users, cfusername: e.target.value })}
+                        />
+                        <Label
+                            htmlFor="cfusername"
+                            className="absolute left-2 top-7 pointer-events-none transition-all duration-500 peer-focus:-top-1.5 peer-valid:-top-1.5 "
+                        >
+                            Codeforce username
+                        </Label>
+                    </div>
+
+
                     {/* email */}
                     <div className="relative">
                         <Input
@@ -104,12 +129,12 @@ const Signup = () => {
                             id="email"
                             value={users.email}
                             required
-                            className="peer mt-4 w-full pt-0 tracking-[1px] mb-[30px] border-2 border-blue-200 outline-none bg-transparent focus:border-[#55189f] transition-colors duration-300 rounded-sm"
+                            className="peer mt-0 w-full pt-0 tracking-[1px] mb-[30px] border-2 border-blue-200 outline-none bg-transparent focus:border-[#55189f] transition-colors duration-300 rounded-sm"
                             onChange={(e) => setUsers({ ...users, email: e.target.value })}
                         />
                         <Label
                             htmlFor="email"
-                            className="absolute left-2 top-7 pointer-events-none transition-all duration-500 peer-focus:-top-1.5 peer-valid:-top-1.5 "
+                            className="absolute left-2 top-3 pointer-events-none transition-all duration-500 peer-focus:-top-5 peer-valid:-top-5 "
                         >
                             Email
                         </Label>
@@ -127,7 +152,7 @@ const Signup = () => {
                         />
                         <Label
                             htmlFor="password"
-                            className="absolute left-2 top-3 pointer-events-none transition-all duration-500 peer-focus:-top-5 peer-valid:-top-5 "
+                            className="absolute left-2 top-3 pointer-events-none transition-all duration-500 peer-focus:-top-5 peer-valid:-top-5"
                         >
                             Password
                         </Label>
@@ -145,7 +170,7 @@ const Signup = () => {
                         />
                         <Label
                             htmlFor="confirmPassword"
-                            className="absolute left-2 top-3 pointer-events-none transition-all duration-500 peer-focus:-top-5 peer-valid:-top-5 "
+                            className="absolute left-2 top-3 pointer-events-none transition-all duration-500 peer-focus:-top-5 peer-valid:-top-5"
                         >
                             Confirm password
                         </Label>
@@ -203,6 +228,26 @@ const Signup = () => {
                             className="absolute left-2 top-3 pointer-events-none transition-all duration-500 peer-focus:-top-5 peer-valid:-top-5"
                         >
                             University
+                        </Label>
+                    </div>
+
+                    {/* country */}
+                    <div className="relative">
+                        <Input
+                            type="text"
+                            id="country"
+                            value={users.country}
+                            required
+                            className="peer mt-0 w-full pt-0 tracking-[1px] mb-[30px] border-2 border-blue-200 outline-none bg-transparent focus:border-[#55189f] transition-colors duration-300 rounded-sm"
+                            onChange={(e) =>
+                                setUsers({ ...users, country: e.target.value })
+                            }
+                        />
+                        <Label
+                            htmlFor="country"
+                            className="absolute left-2 top-3 pointer-events-none transition-all duration-500 peer-focus:-top-5 peer-valid:-top-5"
+                        >
+                            Country
                         </Label>
                     </div>
 
