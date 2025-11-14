@@ -72,7 +72,7 @@ export default function Contest() {
               ))
               : paginatedContests.map(
                 (contest: CodeforceContest, index: number) => (
-                  <tr key={contest.id} className="grid grid-cols-[10%_40%_10%_20%_20%] hover:font-semibold border-2 border-blue-200 hover:border-green-200 px-4 py-2 hover:bg-gray-100 gap-4 rounded-sm hover:shadow-md hover:shadow-blue-300">
+                  <tr key={contest.id} className="grid grid-cols-[10%_40%_10%_20%_20%] hover:font-semibold px-4 py-2 hover:bg-gray-100 gap-4 rounded-sm shadow-lg shadow-black hover:border-2 hover:animate-border-color hover:shadow-blue-200">
                     <td>{(page * PAGE_SIZE) + index + 1}</td>
                     <td>{contest.name}</td>
                     <td>{contest.type}</td>

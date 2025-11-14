@@ -126,8 +126,13 @@
   100% {
     border-color: #a8c4ff;
   }
-  50% {
-    border-color: #1328ff;
+  50%{
+    border-color: rgb(223, 81, 128);
+  }
+
+  25%,
+  75% {
+    border-color: #0dd328;
   }
 }
 
