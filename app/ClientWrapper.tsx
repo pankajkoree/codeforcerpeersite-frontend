@@ -13,7 +13,7 @@ import Footer from "./Footer";
 const ClientWrapper = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(() => new QueryClient());
   return (
-    <div className="antialiased text-gray-600 min-h-screen flex flex-col bg-linear-to-r from-blue-100 via-green-50  to-blue-100">
+    <div className="antialiased text-gray-600 min-h-screen flex flex-col">
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <Header />

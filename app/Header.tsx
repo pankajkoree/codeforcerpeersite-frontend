@@ -10,7 +10,7 @@ const Header = () => {
   const { user } = useAuth()
   return (
     <div className="sticky top-0 z-50 w-full border-b-2 border-gray-400">
-      <nav className="flex justify-between items-center w-[80%] mx-auto px-8 py-4 bg-linear-to-r from-blue-100 via-green-50  to-blue-100">
+      <nav className="flex justify-between items-center w-[80%] mx-auto px-8 py-4 backdrop-blur-lg">
         {/* left nav */}
         <div className="flex gap-16 items-center text-xl">
           {/* logo */}

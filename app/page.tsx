@@ -50,14 +50,14 @@ export default function CodeforcesUsers() {
             ? Array.from({ length: SKELETON_COUNT }).map((_, idx) => (
               <Card
                 key={idx}
-                className="animate-pulse h-48 bg-gray-200 rounded-lg gap-4"
+                className="animate-pulse h-48 rounded-lg gap-4"
               >
                 <p className="flex p-2 h-8 bg-gray-300"></p>
                 <p className="flex p-2 h-8 bg-gray-300"></p>
               </Card>
             ))
             : paginatedUsers.map((user: CodeforcesUser) => (
-              <Card key={user.handle} className="p-4 hover:cursor-pointer bg-gray-100 hover:shadow-lg hover:shadow-blue-300">
+              <Card key={user.handle} className="p-4 hover:cursor-pointer hover:shadow-lg hover:shadow-blue-300">
                 <div className="flex justify-between">
                   <Image src={user?.avatar} width={48} height={48} alt={user.avatar} />
                   <p className="font-bold text-xl">{user.handle}</p>

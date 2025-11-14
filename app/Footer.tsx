@@ -1,6 +1,6 @@
 export default function Footer() {
     return (
-        <div className="fixed bottom-0 z-50 w-full border-t-2 border-gray-400 bg-linear-to-r from-blue-100 via-green-50  to-blue-100">
+        <div className="fixed bottom-0 z-50 w-full border-t-2 border-gray-400 backdrop-blur-lg">
             <nav className="flex justify-between items-center w-[80%] mx-auto px-8 py-4">
                 {/* left nav */}
                 <div className="flex gap-16 items-center text-sm">

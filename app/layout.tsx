@@ -7,6 +7,7 @@ axios.defaults.withCredentials = true
 import "./globals.css";
 import { ReactNode } from "react";
 import ClientWrapper from "./ClientWrapper";
+import NeatBackground from "@/components/NeatBackground";
 
 export const metadata = {
   title: "Codeforce Peersite",
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
+        <NeatBackground />
         <ClientWrapper>{children}</ClientWrapper>
       </body>
     </html>
