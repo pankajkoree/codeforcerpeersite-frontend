@@ -48,7 +48,7 @@ const userProfile = () => {
   return (
     <div className="max-w-full">
       <main className="p-6 mx-auto md:w-[70%]">
-        <section className="bg-black w-[50%] mx-auto rounded-2xl">
+        <section className="relative flex flex-col bg-black w-[50%] mx-auto rounded-2xl">
           {/* profile images and cover with registered on */}
           <section>
             {/* cover */}
@@ -66,7 +66,7 @@ const userProfile = () => {
               width={100}
               height={100}
               alt="profile"
-              className="rounded-full ml-12 -mt-12"
+              className="rounded-full relative flex left-4 -mt-12"
             />
 
             {/* verified tick mark */}
@@ -76,7 +76,7 @@ const userProfile = () => {
               height="24"
               viewBox="0 0 24 24"
               fill="rgb(0,0,255)"
-              className="ml-30 -mt-8 icon icon-tabler icons-tabler-filled icon-tabler-rosette-discount-check"
+              className="relative flex left-23 -top-8 icon icon-tabler icons-tabler-filled icon-tabler-rosette-discount-check"
             >
               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
               <path d="M12.01 2.011a3.2 3.2 0 0 1 2.113 .797l.154 .145l.698 .698a1.2 1.2 0 0 0 .71 .341l.135 .008h1a3.2 3.2 0 0 1 3.195 3.018l.005 .182v1c0 .27 .092 .533 .258 .743l.09 .1l.697 .698a3.2 3.2 0 0 1 .147 4.382l-.145 .154l-.698 .698a1.2 1.2 0 0 0 -.341 .71l-.008 .135v1a3.2 3.2 0 0 1 -3.018 3.195l-.182 .005h-1a1.2 1.2 0 0 0 -.743 .258l-.1 .09l-.698 .697a3.2 3.2 0 0 1 -4.382 .147l-.154 -.145l-.698 -.698a1.2 1.2 0 0 0 -.71 -.341l-.135 -.008h-1a3.2 3.2 0 0 1 -3.195 -3.018l-.005 -.182v-1a1.2 1.2 0 0 0 -.258 -.743l-.09 -.1l-.697 -.698a3.2 3.2 0 0 1 -.147 -4.382l.145 -.154l.698 -.698a1.2 1.2 0 0 0 .341 -.71l.008 -.135v-1l.005 -.182a3.2 3.2 0 0 1 3.013 -3.013l.182 -.005h1a1.2 1.2 0 0 0 .743 -.258l.1 -.09l.698 -.697a3.2 3.2 0 0 1 2.269 -.944zm3.697 7.282a1 1 0 0 0 -1.414 0l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.32 1.497l2 2l.094 .083a1 1 0 0 0 1.32 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z" />
@@ -84,49 +84,55 @@ const userProfile = () => {
           </section>
 
           {/* name,email,registeredOn */}
-          <section className="mt-6 ml-12">
+          <section className="relative w-full flex left-4">
             {user && (
-              <div>
-                {/* name and verified */}
-                <div className="flex items-center gap-4">
-                  <h1 className="font-bold text-3xl text-gray-100">
-                    {user.name}
-                  </h1>
-                  <p className="flex items-center text-sm text-gray-400 border border-gray-700 rounded-md px-2 gap-1">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="6"
-                      height="6"
-                      viewBox="0 0 24 24"
-                      fill="lime"
-                      className="icon icon-tabler icons-tabler-filled icon-tabler-circle"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z" />
-                    </svg>
-                    <span>Verified</span>
-                  </p>
+              <div className="relative flex flex-col gap-4">
+                {/* name verified email */}
+                <div>
+                  {/* name and verified */}
+                  <div className="flex items-center gap-4">
+                    <h1 className="font-bold text-3xl text-gray-100">
+                      {user.name}
+                    </h1>
+                    <p className="flex items-center text-sm text-gray-400 border border-gray-700 rounded-md px-2 gap-1">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="6"
+                        height="6"
+                        viewBox="0 0 24 24"
+                        fill="lime"
+                        className="icon icon-tabler icons-tabler-filled icon-tabler-circle"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z" />
+                      </svg>
+                      <span>Verified</span>
+                    </p>
+                  </div>
+
+                  {/* email */}
+                  <p className="text-gray-100">{user.email}</p>
                 </div>
-                {/* email */}
-                <p className="text-gray-400">{user.email}</p>
 
                 {/* registered on */}
-                <p className="text-gray-400">Registered On</p>
-                <p className="text-gray-100">
-                  {formatDate(user?.registeredOn)}
-                </p>
+                <div>
+                  <p className="text-gray-400">Registered On</p>
+                  <p className="text-gray-100">
+                    {formatDate(user?.registeredOn)}
+                  </p>
+                </div>
 
                 {/* form like structure but for value showing */}
-                <section className="text-gray-100 text-xl gap-2">
+                <section className="text-gray-100 text-xl relative flex flex-col gap-2">
                   {/* name */}
-                  <div className="flex w-full">
-                    <p className="w-[30%]">Name</p>
+                  <div className="grid grid-cols-[30%_70%] w-full">
+                    <p>Name</p>
                     <p>{user.name}</p>
                   </div>
 
                   {/* email */}
                   <div className="w-full">
-                    <div className="flex">
+                    <div className="grid grid-cols-[30%_70%]">
                       <p className="w-[30%]">Email</p>
                       <p className="flex items-center gap-1">
                         <span>
@@ -152,7 +158,7 @@ const userProfile = () => {
                     </div>
 
                     {/* verified */}
-                    <div className="flex items-center gap-2 text-blue-200 text-sm ml-45">
+                    <div className="relative flex items-center gap-2 text-blue-200 text-sm left-41">
                       <span>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -172,15 +178,50 @@ const userProfile = () => {
                   </div>
 
                   {/* country */}
-                  <div className="flex w-full items-center gap-2">
+                  <div className="grid grid-cols-[40%_60%] w-full">
                     <p className="w-[30%]">Country</p>
-                    <Image
-                      src={`https://flagcdn.com/${countryCode}.svg`}
-                      width={24}
-                      height={16}
-                      alt={`${user.country} flag`}
-                    />
-                    <span>{user.country}</span>
+                    <div className="flex gap-1">
+                      <Image
+                        src={`https://flagcdn.com/${countryCode}.svg`}
+                        width={24}
+                        height={16}
+                        alt={`${user.country} flag`}
+                      />
+                      <span>{user.country}</span>
+                    </div>
+                  </div>
+
+                  {/* cf username */}
+                  <div className="grid grid-cols-[40%_60%] w-full">
+                    <p>Username</p>
+                    <p>{user.cfusername}</p>
+                  </div>
+
+                  {/* permissions */}
+                  <div className="w-full border grid grid-cols-2 gap-4">
+                    <div className="w-[40%]">
+                      <p className="font-medium">Permissions</p>
+                    </div>
+
+                    <div className="w-full">
+                      <div className="flex items-center gap-2">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                        >
+                          <path d="M0 0h24v24H0z" fill="none" />
+                          <path d="M16 9a3 3 0 1 1 -3 3l.005 -.176a3 3 0 0 1 2.995 -2.824" />
+                          <path d="M16 5a7 7 0 0 1 0 14h-8a7 7 0 0 1 0 -14zm0 2h-8a5 5 0 1 0 0 10h8a5 5 0 0 0 0 -10" />
+                        </svg>
+
+                        <p className="font-medium">User</p>
+                      </div>
+
+                      
+                    </div>
                   </div>
                 </section>
               </div>
