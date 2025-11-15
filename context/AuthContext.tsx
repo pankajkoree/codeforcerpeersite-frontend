@@ -8,9 +8,12 @@ import { api } from "@/lib/api/api";
 interface User {
     _id: string;
     name: string;
+    cfusername: string,
     email: string;
     gender: string,
     university: string;
+    country: string,
+    registeredOn: string,
 }
 
 interface AuthContextType {
