@@ -38,7 +38,6 @@ export default function Contest() {
   const hasPrev = page > 0;
   const hasNext = data && (page + 1) * PAGE_SIZE < data.length;
 
-
   console.log(paginatedContests);
   return (
     <div className="max-w-full">
@@ -62,35 +61,43 @@ export default function Contest() {
           <tbody className="flex flex-col gap-4">
             {isLoading
               ? Array.from({ length: SKELETON_COUNT }).map((_, idx) => (
-                <tr key={idx} className="animate-pulse h-8 bg-gray-200 rounded-sm gap-4">
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              ))
+                  <tr
+                    key={idx}
+                    className="animate-pulse h-8 bg-gray-200 rounded-sm gap-4"
+                  >
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                ))
               : paginatedContests.map(
-                (contest: CodeforceContest, index: number) => (
-                  <tr key={contest.id} className="grid grid-cols-[10%_40%_10%_20%_20%] hover:font-semibold px-4 py-2 hover:bg-gray-100 gap-4 rounded-sm shadow-lg shadow-black hover:border-2 hover:animate-border-color hover:shadow-blue-200">
-                    <td>{(page * PAGE_SIZE) + index + 1}</td>
-                    <td>{contest.name}</td>
-                    <td>{contest.type}</td>
-                    <td>{
-                      contest.phase === "BEFORE"
-                        ? "Upcoming"
-                        : contest.phase === "CODING"
+                  (contest: CodeforceContest, index: number) => (
+                    <tr
+                      key={contest.id}
+                      className="grid grid-cols-[10%_40%_10%_20%_20%] hover:font-semibold px-4 py-2 hover:bg-gray-100 gap-4 rounded-sm shadow-md shadow-black hover:border hover:animate-border-color hover:shadow-blue-200"
+                    >
+                      <td>{page * PAGE_SIZE + index + 1}</td>
+                      <td>{contest.name}</td>
+                      <td>{contest.type}</td>
+                      <td>
+                        {contest.phase === "BEFORE"
+                          ? "Upcoming"
+                          : contest.phase === "CODING"
                           ? "Ongoing"
                           : contest.phase === "PENDING_SYSTEM_TEST"
-                            ? "Finalizing results"
-                            : contest.phase === "FINISHED" ?
-                              "Completed" : contest.phase
-
-                    }</td>
-                    <td>{Number(contest.durationSeconds) / 60 / 60}{" "}{'hours'}</td>
-                  </tr>
-                )
-              )}
+                          ? "Finalizing results"
+                          : contest.phase === "FINISHED"
+                          ? "Completed"
+                          : contest.phase}
+                      </td>
+                      <td>
+                        {Number(contest.durationSeconds) / 60 / 60} {"hours"}
+                      </td>
+                    </tr>
+                  )
+                )}
           </tbody>
         </table>
 
@@ -99,13 +106,17 @@ export default function Contest() {
           <Button
             onClick={() => setPage((p) => p - 1)}
             disabled={!hasPrev}
-            className="px-4 py-2 rounded disabled:opacity-50 hover:cursor-pointer">
+            className="px-4 py-2 rounded disabled:opacity-50 hover:cursor-pointer"
+          >
             Prev
           </Button>
           <Button
             onClick={() => setPage((p) => p + 1)}
             disabled={!hasNext}
-            className="px-4 py-2 rounded disabled:opacity-50 hover:cursor-pointer">Next</Button>
+            className="px-4 py-2 rounded disabled:opacity-50 hover:cursor-pointer"
+          >
+            Next
+          </Button>
         </div>
       </main>
     </div>
