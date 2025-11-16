@@ -123,16 +123,16 @@ const userProfile = () => {
                 </div>
 
                 {/* form like structure but for value showing */}
-                <section className="text-gray-100 text-xl relative flex flex-col gap-2">
+                <section className="text-gray-100 text-xl grid gap-4">
                   {/* name */}
-                  <div className="grid grid-cols-[30%_70%] w-full">
+                  <div className="grid grid-cols-2 w-full">
                     <p>Name</p>
                     <p>{user.name}</p>
                   </div>
 
                   {/* email */}
                   <div className="w-full">
-                    <div className="grid grid-cols-[30%_70%]">
+                    <div className="grid grid-cols-2">
                       <p className="w-[30%]">Email</p>
                       <p className="flex items-center gap-1">
                         <span>
@@ -178,7 +178,7 @@ const userProfile = () => {
                   </div>
 
                   {/* country */}
-                  <div className="grid grid-cols-[40%_60%] w-full">
+                  <div className="grid grid-cols-2 w-full">
                     <p className="w-[30%]">Country</p>
                     <div className="flex gap-1">
                       <Image
@@ -192,14 +192,14 @@ const userProfile = () => {
                   </div>
 
                   {/* cf username */}
-                  <div className="grid grid-cols-[40%_60%] w-full">
+                  <div className="grid grid-cols-2 w-full">
                     <p>Username</p>
                     <p>{user.cfusername}</p>
                   </div>
 
                   {/* permissions */}
-                  <div className="w-full border grid grid-cols-2 gap-4">
-                    <div className="w-[40%]">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
                       <p className="font-medium">Permissions</p>
                     </div>
 
@@ -219,8 +219,9 @@ const userProfile = () => {
 
                         <p className="font-medium">User</p>
                       </div>
-
-                      
+                      <div>
+                        can access the list of mates
+                      </div>
                     </div>
                   </div>
                 </section>
