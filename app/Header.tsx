@@ -18,7 +18,7 @@ const Header = () => {
       toast.success("logged out successfully");
       router.push("/login");
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error("logout failed");
     }
   };
@@ -65,21 +65,6 @@ const Header = () => {
 
         {/* right nav */}
         <div className="flex gap-4 items-center">
-          {/* search user */}
-          <div className="flex items-center gap-1 border-2 border-gray-400 rounded-sm px-2">
-            <Input type="text" id="searchbar" placeholder="search user" />
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              className="bi bi-search"
-              viewBox="0 0 16 16"
-            >
-              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-            </svg>
-          </div>
-
           {/* profile nav */}
           <div
             className="flex gap-2 items-center hover:cursor-pointer rounded-sm hover:bg-blue-400 hover:text-white px-2 py-2 group"
