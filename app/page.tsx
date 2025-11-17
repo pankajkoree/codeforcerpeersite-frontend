@@ -2,7 +2,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
 import { useState, useMemo } from "react";
 
 interface CodeforcesUser {

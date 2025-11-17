@@ -17,11 +17,18 @@ interface CFResponse {
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const university = searchParams.get("university")?.trim().toLowerCase() || "";
+
+  const queryUniversity = searchParams.get("university")?.trim().toLowerCase();
+  const university = queryUniversity;
+
   const start = Number(searchParams.get("start") || "0");
 
-  if (!university)
+  if (!university) {
+    console.error("No university provided and DEFAULT_UNIVERSITY is empty");
     return NextResponse.json({ error: "University name is required" }, { status: 400 });
+  }
+
+  console.log(`Searching for university: "${university}"`);
 
   try {
     console.log(`Fetching users starting at index ${start}`);
