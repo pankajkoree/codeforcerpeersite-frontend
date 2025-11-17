@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { useAuth } from "@/context/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
 interface CodeforcesUser {
@@ -23,6 +24,7 @@ const SKELETON_COUNT = 12;
 
 const universitymates = () => {
   const [page, setPage] = useState(0);
+  const router = useRouter();
   const { user } = useAuth();
 
   const university = user?.university;
@@ -118,6 +120,7 @@ const universitymates = () => {
                 <div
                   className="flex bg-linear-to-br from-slate-50 to-slate-100 rounded-full"
                   key={user.handle}
+                  onClick={() => router.push(`/universitymates/${user.handle}`)}
                 >
                   <div className="group relative w-full max-w-sm bg-white rounded-2xl p-6 shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer border animate-border-color hover:border-2 hover:border-blue-400">
                     {/* Rating Badge */}
