@@ -24,14 +24,11 @@ export async function GET(req: Request) {
   const start = Number(searchParams.get("start") || "0");
 
   if (!university) {
-    console.error("No university provided and DEFAULT_UNIVERSITY is empty");
     return NextResponse.json({ error: "University name is required" }, { status: 400 });
   }
 
-  console.log(`Searching for university: "${university}"`);
 
   try {
-    console.log(`Fetching users starting at index ${start}`);
 
     const res = await fetch(
       `https://codeforces.com/api/user.ratedList?activeOnly=${ACTIVE_ONLY}&start=${start}&count=${BATCH_SIZE}`,
@@ -53,7 +50,6 @@ export async function GET(req: Request) {
       count: matched.length,
     });
   } catch (err) {
-    console.error(err);
     return NextResponse.json({ error: "Failed to fetch users" }, { status: 500 });
   }
 }
