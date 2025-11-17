@@ -63,7 +63,7 @@ export default function CodeforcesUsers() {
                   className="flex bg-linear-to-br from-slate-50 to-slate-100 rounded-full"
                   key={user.handle}
                 >
-                  <div className="group relative w-full max-w-sm bg-white rounded-2xl p-6 shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer border border-slate-200 hover:border-blue-400">
+                  <div className="group relative w-full max-w-sm bg-white rounded-2xl p-6 shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer border animate-border-color hover:border-2 hover:border-blue-400">
                     {/* Rating Badge */}
                     <div className="absolute top-4 right-4 bg-linear-to-r from-gray-600 to-orange-300 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-md flex items-center gap-1">
                       <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
