@@ -1,14 +1,25 @@
-const UniversityMatchedUserProfile = () => {
-  const fetchUserByHandle = async () => {
-    // await fetch(
-    //   `https://codeforces.com/api/user.info?handles=${codeforceusername}`
-    // );
-  };
+'use client'
+
+export default function UniversityMatchedUserProfile({
+  params,
+}: {
+  params: { value: string };
+}) {
+  const codeforceusername = params.value;
+
+  console.log(codeforceusername);
+
+  // you CAN fetch data here directly
+//   const userRes = await fetch(
+//     `https://codeforces.com/api/user.info?handles=${codeforceusername}`
+//   );
+
+//   const userData = await userRes.json();
+
   return (
     <div>
-      <h1>matched user specific profile</h1>
+      <h1>Matched User: {codeforceusername}</h1>
+     
     </div>
   );
-};
-
-export default UniversityMatchedUserProfile;
+}
