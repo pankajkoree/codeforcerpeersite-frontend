@@ -4,11 +4,25 @@ import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAuth } from "@/context/AuthContext";
-import { Button } from "@/components/ui/button";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useAuth();
+  const { logout, user } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    try {
+      await logout();
+      toast.success("logged out successfully");
+      router.push("/login");
+    } catch (error) {
+      console.log(error)
+      toast.error("logout failed");
+    }
+  };
+
   return (
     <div className="sticky top-0 z-50 w-full border-b-2 border-gray-400">
       <nav className="flex justify-between items-center w-[80%] mx-auto px-8 py-4 backdrop-blur-lg">
@@ -151,7 +165,10 @@ const Header = () => {
                     <button className="hover:cursor-pointer">Signup</button>
                   </Link>
                 ) : (
-                  <button className="flex justify-between hover:cursor-pointer hover:bg-gray-300 rounded-tl-sm rounded-tr-sm px-4 py-2">
+                  <button
+                    className="flex justify-between hover:cursor-pointer hover:bg-gray-300 rounded-tl-sm rounded-tr-sm px-4 py-2"
+                    onClick={handleLogout}
+                  >
                     <span className="hover:cursor-pointer">Logout</span>
                   </button>
                 )}

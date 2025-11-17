@@ -126,7 +126,7 @@ export default function CodeforcesUsers() {
                       <div className="w-px bg-slate-200"></div>
                       <div className="flex-1 text-center">
                         <p className="text-xl font-bold text-slate-900">
-                          {user.country}
+                          {user.country || "None"}
                         </p>
                         <p className="text-xs text-slate-500 mt-1">Country</p>
                       </div>

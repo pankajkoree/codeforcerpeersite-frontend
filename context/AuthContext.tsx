@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const logoutMutation = useMutation({
         mutationKey: ['logout'],
         mutationFn: async () => {
-            await api.post("/logout", {}, { withCredentials: true });
+            await api.get("/logout", { withCredentials: true });
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["currentUser"] });
