@@ -1,8 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { useAuth } from "@/context/AuthContext";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 interface CodeforcesUser {
@@ -17,6 +19,7 @@ interface CodeforcesUser {
 }
 
 const PAGE_SIZE = 52;
+const SKELETON_COUNT = 12;
 
 const universitymates = () => {
   const [page, setPage] = useState(0);
@@ -35,7 +38,9 @@ const universitymates = () => {
 
       while (hasMore) {
         const res = await fetch(
-          `/api/uniMatch?university=${encodeURIComponent(university)}&start=${start}`
+          `/api/uniMatch?university=${encodeURIComponent(
+            university
+          )}&start=${start}`
         );
         if (!res.ok)
           throw new Error("Failed to fetch university matched users");
@@ -49,8 +54,6 @@ const universitymates = () => {
           hasMore = false;
         }
       }
-
-      console.log(`Total matched users found: ${allUsers.length}`);
       return allUsers;
     },
     staleTime: Infinity,
@@ -66,26 +69,18 @@ const universitymates = () => {
   const hasPrev = page > 0;
   const hasNext = data && (page + 1) * PAGE_SIZE < data.length;
 
-  console.log("Current page users:", uniMatchUsers);
-  console.log("Total users:", data?.length || 0);
-  console.log("Current page:", page);
-
-  // Show message if no university is set
   if (!university) {
     return (
       <div className="max-w-full">
-        <main className="p-6 mx-auto md:w-[70%]">
+        <main className="p-6 mx-auto md:w-[70%] text-xl flex flex-col justify-center items-center">
           <h1>Please set your university in your profile</h1>
-        </main>
-      </div>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <div className="max-w-full">
-        <main className="p-6 mx-auto md:w-[70%]">
-          <h1>Loading university mates from {university}...</h1>
+          <div className="flex gap-1 text-base">
+            <p>Not logged in yet?</p>
+            <Link href="/login" className="text-blue-400">
+              {" "}
+              Login
+            </Link>
+          </div>
         </main>
       </div>
     );
@@ -105,24 +100,96 @@ const universitymates = () => {
   return (
     <div className="max-w-full">
       <main className="p-6 mx-auto md:w-[70%]">
-        <h1>University Mates from {university} ({data?.length || 0} total)</h1>
+        <div className="flex justify-center text-xl pb-4">
+          <h1>
+            University Mates from {university} ({data?.length || 0} total)
+          </h1>
+        </div>
 
-        {/* Display users */}
-        <div className="my-6">
-          {uniMatchUsers.length === 0 ? (
-            <p>No users found for this university</p>
-          ) : (
-            <div className="grid gap-4">
-              {uniMatchUsers.map((user) => (
-                <div key={user.handle} className="p-4 border rounded">
-                  <p className="font-bold">{user.handle}</p>
-                  <p>Rating: {user.rating}</p>
-                  <p>Rank: {user.rank}</p>
-                  <p>Organization: {user.organization}</p>
+        <div className="grid grid-cols-4 gap-4">
+          {isLoading
+            ? Array.from({ length: SKELETON_COUNT }).map((_, idx) => (
+                <Card key={idx} className="animate-pulse h-48 rounded-lg gap-4">
+                  <p className="flex p-2 h-8 bg-gray-300"></p>
+                  <p className="flex p-2 h-8 bg-gray-300"></p>
+                </Card>
+              ))
+            : uniMatchUsers.map((user: CodeforcesUser) => (
+                <div
+                  className="flex bg-linear-to-br from-slate-50 to-slate-100 rounded-full"
+                  key={user.handle}
+                >
+                  <div className="group relative w-full max-w-sm bg-white rounded-2xl p-6 shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer border animate-border-color hover:border-2 hover:border-blue-400">
+                    {/* Rating Badge */}
+                    <div className="absolute top-4 right-4 bg-linear-to-r from-gray-600 to-orange-300 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-md flex items-center gap-1">
+                      <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                      </svg>
+                      {(user.rating / 1000).toFixed(2) || "N/A"}
+                    </div>
+
+                    {/* Avatar and Info */}
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="relative">
+                        <img
+                          src={user.avatar}
+                          alt={user.handle}
+                          className="w-16 h-16 rounded-full ring-4 ring-blue-100 group-hover:ring-blue-300 transition-all duration-300"
+                        />
+                        <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-4 border-white"></div>
+                      </div>
+
+                      <div className="flex-1 pt-1">
+                        <h3 className="font-bold text-xl text-slate-900 group-hover:text-blue-600 transition-colors">
+                          {user.handle}
+                        </h3>
+                        <p className="text-sm text-slate-500 mt-1 flex items-center gap-1">
+                          <svg
+                            className="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                            />
+                          </svg>
+                          {user.organization || "Independent"}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Stats Row */}
+                    <div className="flex gap-4 pt-4 border-t border-slate-100">
+                      <div className="flex-1 text-center">
+                        <p className="text-2xl font-bold text-slate-900">
+                          {user.maxRating}
+                        </p>
+                        <p className="text-xs text-slate-500 mt-1">
+                          Max Rating
+                        </p>
+                      </div>
+                      <div className="w-px bg-slate-200"></div>
+                      <div className="flex-1 text-center">
+                        <p className="text-2xl font-bold text-slate-900">
+                          {user.friendOfCount}
+                        </p>
+                        <p className="text-xs text-slate-500 mt-1">Friends</p>
+                      </div>
+                      <div className="w-px bg-slate-200"></div>
+                      <div className="flex-1 text-center">
+                        <p className="text-xl font-bold text-slate-900">
+                          {user.country || "None"}
+                        </p>
+                        <p className="text-xs text-slate-500 mt-1">Country</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
-            </div>
-          )}
         </div>
 
         {/* Pagination */}
