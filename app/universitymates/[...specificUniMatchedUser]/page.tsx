@@ -135,15 +135,25 @@ export default function UniversityMatchedUserProfile({
                         <div className="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-slate-800 bg-slate-700 animate-pulse"></div>
                       ) : (
                         <>
-                          <Image
-                            src={
-                              "https://images.unsplash.com/photo-1714356333088-45a9ba618365?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0"
-                            }
-                            alt="avatar"
-                            width={120}
-                            height={120}
-                            className="rounded-full border-4 border-slate-800 shadow-lg object-cover w-24 h-24 md:w-32 md:h-32"
-                          />
+                          {user.titlePhoto ? (
+                            <Image
+                              src={`${user.titlePhoto}`}
+                              alt="avatar"
+                              width={120}
+                              height={120}
+                              className="rounded-full border-4 border-slate-800 shadow-lg object-cover w-24 h-24 md:w-32 md:h-32"
+                            />
+                          ) : (
+                            <Image
+                              src={
+                                "https://images.unsplash.com/photo-1714356333088-45a9ba618365?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0"
+                              }
+                              alt="avatar"
+                              width={120}
+                              height={120}
+                              className="rounded-full border-4 border-slate-800 shadow-lg object-cover w-24 h-24 md:w-32 md:h-32"
+                            />
+                          )}
                           {/* Verified badge - kept like previous */}
                           <span className="absolute right-0 top-22 rounded-full shadow-md">
                             <svg
