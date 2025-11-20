@@ -13,7 +13,6 @@ export default function ForgotPassword() {
 
   const [identifier, setIdentifier] = useState("");
   const [newPassword, setNewPassword] = useState("");
-
   const [loading, setLoading] = useState(false);
 
   const handleResetPassword = async (e: FormEvent<HTMLFormElement>) => {
@@ -37,7 +36,6 @@ export default function ForgotPassword() {
         }, 2000);
       }
     } catch (err) {
-      console.error("Reset password error:", err);
     } finally {
       setLoading(false);
     }
