@@ -4,10 +4,13 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const UserProfile = () => {
-  const { user, isLoading } = useAuth();
+  const { user, isLoading, logout } = useAuth();
+  const router=useRouter()
 
   const formatDate = (date?: string | Date) => {
     if (!date) return "";
@@ -45,6 +48,17 @@ const UserProfile = () => {
   useEffect(() => {
     setCountryCode(getCountryCode(user?.country));
   }, [user]);
+
+    const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    try {
+      await logout();
+      toast.success("logged out successfully");
+      router.push("/login");
+    } catch (error) {
+      console.log(error);
+      toast.error("logout failed");
+    }
+  };
 
   return (
     <div className="flex items-start justify-center py-6 md:py-12 px-4">
@@ -242,6 +256,7 @@ const UserProfile = () => {
                     <Button
                       variant="logout"
                       className="w-full md:w-48 font-semibold py-2 md:py-6 shadow-md transition-all"
+                      onClick={handleLogout}
                     >
                       Logout
                     </Button>
